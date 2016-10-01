@@ -9129,7 +9129,7 @@
 	 * Version string for plug-ins to check compatibility. Allowed format is
 	 * `a.b.c-d` where: a:int, b:int, c:int, d:string(dev|beta|alpha). `d` is used
 	 * only for non-release builds. See http://semver.org/ for more information.
-	 *  @member
+	 *  @user
 	 *  @type string
 	 *  @default Version number
 	 */
@@ -9142,7 +9142,7 @@
 	 * Note that the `DataTable.settings` object is aliased to
 	 * `jQuery.fn.dataTableExt` through which it may be accessed and
 	 * manipulated, or `jQuery.fn.dataTable.settings`.
-	 *  @member
+	 *  @user
 	 *  @type array
 	 *  @default []
 	 *  @private

@@ -177,7 +177,7 @@ define([
      * $("#summernote").summernote( { options ..} );
      * ```
      *   
-     * @member $.fn
+     * @user $.fn
      * @param {Object|String} options reference to $.summernote.options
      * @return {this}
      */
@@ -261,7 +261,7 @@ define([
      * $("#summernote").code(html);
      * ```
      *
-     * @member $.fn 
+     * @user $.fn
      * @param {String} [html] - HTML contents(optional, set)
      * @return {this|String} - context(set) or HTML contents of note(get).
      */
@@ -302,7 +302,7 @@ define([
      * 
      * destroy Editor Layout and detach Key and Mouse Event
      *
-     * @member $.fn
+     * @user $.fn
      * @return {this}
      */
     destroy: function () {

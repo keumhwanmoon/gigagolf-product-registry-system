@@ -14,6 +14,6 @@ public class ProductController {
 
     @RequestMapping(value = "/product")
     public ModelAndView page() {
-        return new ModelAndView();
+        return new ModelAndView("product");
     }
 }

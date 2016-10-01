@@ -1,11 +1,13 @@
 package kr.co.xfilegolf.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * @author jason, Moon
@@ -15,10 +17,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private UserService userService;
+
     private static final String[] ignorePages = new String[]{
             "/assets/**",
             "/plugins/**"
     };
+
+    @Autowired
+    public SecurityConfig(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -46,5 +55,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring().antMatchers(ignorePages);
+    }
+
+    @Override
+    protected UserService userDetailsService() {
+        return userService;
     }
 }
