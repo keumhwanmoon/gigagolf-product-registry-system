@@ -1,6 +1,5 @@
 package kr.co.xfilegolf.config;
 
-import kr.co.xfilegolf.user.LoginUser;
 import kr.co.xfilegolf.user.User;
 import kr.co.xfilegolf.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +14,16 @@ import java.util.Objects;
  * @since 2016-09-30
  */
 @Service
-class UserService implements UserDetailsService {
+class UserDetailsServiceImpl implements UserDetailsService {
+
+    private UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-    public LoginUser loadUserByUsername(String loginId) throws UsernameNotFoundException {
+    public User loadUserByUsername(String loginId) throws UsernameNotFoundException {
 
         User user = userRepository.findByLoginId(loginId);
 
@@ -32,10 +35,6 @@ class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("승인되지 않은 사용자입니다.");
         }
 
-        LoginUser loginUser = new LoginUser();
-
-        loginUser.setAgencyName(user.getAgencyName());
-
-        return loginUser;
+        return user;
     }
 }
