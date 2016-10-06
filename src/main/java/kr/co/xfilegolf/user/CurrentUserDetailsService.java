@@ -30,7 +30,7 @@ public class CurrentUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("존재하지 않는 사용자입니다.");
         }
 
-        if (Objects.equals(user.get().getLoginId(), loginId)) {
+        if (!user.get().isActivation()) {
             throw new UsernameNotFoundException("승인되지 않은 사용자입니다.");
         }
 

@@ -1,5 +1,6 @@
 package kr.co.xfilegolf.user;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.Embeddable;
  * @since 2016-10-04
  */
 @Embeddable
+@Data
 public class Role implements GrantedAuthority {
 
     @Column(name = "ROLE", nullable = false)

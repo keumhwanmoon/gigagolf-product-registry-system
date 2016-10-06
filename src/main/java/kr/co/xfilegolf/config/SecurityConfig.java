@@ -47,14 +47,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/login")
                 .permitAll();
+
+        http.csrf().disable();
     }
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(userDetailsService)
-//                .passwordEncoder(new BCryptPasswordEncoder());
-//    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(new BCryptPasswordEncoder());
+    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {

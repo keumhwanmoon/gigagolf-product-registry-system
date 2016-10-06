@@ -20,7 +20,7 @@ public class UserPasswordEncoderTest {
     @Test
     public void passWordHashTest() throws Exception {
 
-        String password = "1234";
+        String password = "pwd";
 
         String passwordHash = bCryptPasswordEncoder.encode(password);
 
