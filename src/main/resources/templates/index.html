@@ -1,6 +1,12 @@
-{{>layout/header}}
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/base">
+<head>
+    <title>DashBoard</title>
+</head>
+<body>
 
-{{>layout/left}}
+<section layout:fragment="content">
 
     <!-- ============================================================== -->
     <!-- Start right Content here -->
@@ -359,6 +365,6 @@
     <!-- End Right content here -->
     <!-- ============================================================== -->
 
-{{>layout/right}}
-
-{{>layout/footer}}
+</section>
+</body>
+</html>
