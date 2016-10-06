@@ -39,9 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/login-process")
-                .failureUrl("/login?error")
-                .usernameParameter("login")
+                .usernameParameter("loginid")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/", true)
                 .permitAll()
@@ -51,12 +49,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(new BCryptPasswordEncoder());
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth
+//                .userDetailsService(userDetailsService)
+//                .passwordEncoder(new BCryptPasswordEncoder());
+//    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
