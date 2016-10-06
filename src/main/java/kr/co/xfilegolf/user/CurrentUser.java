@@ -11,7 +11,7 @@ import java.util.Collection;
  * @since 2016-10-01
  */
 @Data
-public class LoginUser implements UserDetails {
+public class CurrentUser implements UserDetails {
 
     private Long id;
     private String agencyName;

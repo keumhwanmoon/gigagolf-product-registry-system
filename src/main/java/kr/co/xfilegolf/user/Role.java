@@ -12,10 +12,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Role implements GrantedAuthority {
 
-    @Column(name = "LOGIN_ID", nullable = false)
-    private String loginId;
-
-    @Column
+    @Column(name = "ROLE", nullable = false)
     private String role;
 
     @Override

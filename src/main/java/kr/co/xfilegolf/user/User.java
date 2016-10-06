@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,11 +30,32 @@ public class User implements UserDetails {
     @Column(name = "AGENCY_NAME")
     private String agencyName;
 
+    @Column(name = "PRESIDENT_NAME")
+    private String presidentName;
+
+    @Column(name = "AGENCY_ADDRESS")
+    private String agencyAddress;
+
+    @Column(name = "BUSINESS_NUMBER")
+    private String businessNumber;
+
+    @Column(name = "PHONE_NUMBER")
+    private String phoneNumber;
+
+    @Column(name = "MOBILE_PHONE_NUMBER")
+    private String mobilePhoneNumber;
+
+    @Column(name = "CREATED_ON")
+    private LocalDateTime createdOn;
+
+    @Column(name = "LAST_MODIFIED_ON")
+    private LocalDateTime lastModifiedOn;
+
     @Column(name = "ACTIVATION")
     private boolean activation;
 
-    @ElementCollection
-    @CollectionTable(name = "ROLE", joinColumns = @JoinColumn(name = "loginId"))
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "ROLE", joinColumns = @JoinColumn(name = "LOGIN_ID"))
     private List<Role> roles;
 
     @Override

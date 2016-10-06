@@ -1,40 +1,39 @@
-package kr.co.xfilegolf.config;
+package kr.co.xfilegolf.user;
 
-import kr.co.xfilegolf.user.User;
-import kr.co.xfilegolf.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author jason, Moon
  * @since 2016-09-30
  */
 @Service
-class UserDetailsServiceImpl implements UserDetailsService {
+public class CurrentUserDetailsService implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    public UserDetailsServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public CurrentUserDetailsService(UserService userService) {
+        this.userService = userService;
     }
 
     public User loadUserByUsername(String loginId) throws UsernameNotFoundException {
 
-        User user = userRepository.findByLoginId(loginId);
+        Optional<User> user = userService.findUserByLoginId(loginId);
 
-        if (Objects.isNull(user)) {
+        if (!user.isPresent()) {
             throw new UsernameNotFoundException("존재하지 않는 사용자입니다.");
         }
 
-        if (Objects.equals(user.getLoginId(), loginId)) {
+        if (Objects.equals(user.get().getLoginId(), loginId)) {
             throw new UsernameNotFoundException("승인되지 않은 사용자입니다.");
         }
 
-        return user;
+        return user.get();
     }
 }
