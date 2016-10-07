@@ -55,8 +55,10 @@
                                     <td th:text="${product.lastModifiedBy}"></td>
                                     <td th:text="${product.lastModifiedOn}"></td>
                                     <td class="actions">
-                                        <a th:href="${'javascript:edit(' + product.id + ')'}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                        <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                        <a th:href="${'javascript:edit(' + product.id + ')'}"
+                                           class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                        <a th:href="${'javascript:remove(' + product.id + ')'}"
+                                           class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
 
@@ -70,19 +72,6 @@
             </div>
         </div>
     </div>
-
-    <!-- jQuery  -->
-    <script src="/assets/js/jquery.min.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/detect.js"></script>
-    <script src="/assets/js/fastclick.js"></script>
-    <script src="/assets/js/jquery.slimscroll.js"></script>
-    <script src="/assets/js/jquery.blockUI.js"></script>
-    <script src="/assets/js/waves.js"></script>
-    <script src="/assets/js/wow.min.js"></script>
-    <script src="/assets/js/jquery.nicescroll.js"></script>
-    <script src="/assets/js/jquery.scrollTo.min.js"></script>
-    <script src="/plugins/switchery/switchery.min.js"></script>
 
     <!-- Datatables-->
     <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -104,15 +93,49 @@
     <!-- Datatable init js -->
     <script src="/assets/pages/datatables.init.js"></script>
 
-    <script src="/assets/js/jquery.core.js"></script>
-    <script src="/assets/js/jquery.app.js"></script>
+    <!-- Sweet Alert js -->
+    <script src="/plugins/bootstrap-sweetalert/sweet-alert.min.js"></script>
+    <!--<script src="/assets/pages/jquery.sweet-alert.init.js"></script>-->
 
     <script type="text/javascript">
+
         $('#datatable').dataTable();
 
-        var edit = function(id) {
+        var edit = function (id) {
             location.replace("/product-register?id=" + id);
-        }
+        };
+
+        var remove = function (id) {
+
+            //Warning Message
+            swal({
+                title: "삭제하시겠습니까?",
+                text: "삭제 후 되돌릴 수 없습니다.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: 'btn-warning',
+                confirmButtonText: "네. 삭제하겠습니다.",
+                cancelButtonText: "아니오.",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/product?id=" + id,
+                    success: function () {
+                        swal({
+                            title: "삭제되었습니다!",
+                            type: "success"
+                        },
+                        function () {
+                            location.reload();
+                        });
+
+
+                    }
+                });
+
+            });
+        };
     </script>
 </section>
 </body>
