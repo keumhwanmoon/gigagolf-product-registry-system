@@ -22,9 +22,9 @@
                         <div class="page-title-box">
                             <ol class="breadcrumb pull-right">
                                 <li><a href="#">기가골프 제품 등록 시스템</a></li>
-                                <li class="active">제품 등록</li>
+                                <li class="active">제품 목록</li>
                             </ol>
-                            <h4 class="page-title">제품 등록</h4>
+                            <h4 class="page-title">제품 목록</h4>
                         </div>
                     </div>
                 </div>
@@ -43,16 +43,21 @@
                                     <th>등록일자</th>
                                     <th>수정 사용자</th>
                                     <th>수정일자</th>
+                                    <th>수정/삭제</th>
                                 </tr>
                                 </thead>
 
                                 <tr th:each="product : ${products}">
-                                    <td th:text="${code}"></td>
-                                    <td th:text="${name}"></td>
-                                    <td th:text="${createdBy}"></td>
-                                    <td th:text="${createdOn}"></td>
-                                    <td th:text="${lastModifiedBy}"></td>
-                                    <td th:text="${lastModifiedOn}"></td>
+                                    <td th:text="${product.code}"></td>
+                                    <td th:text="${product.name}"></td>
+                                    <td th:text="${product.createdBy}"></td>
+                                    <td th:text="${#temporals.format(product.createdOn, 'yyy-MM-dd')}"></td>
+                                    <td th:text="${product.lastModifiedBy}"></td>
+                                    <td th:text="${product.lastModifiedOn}"></td>
+                                    <td class="actions">
+                                        <a th:href="${'javascript:edit(' + product.id + ')'}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                        <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                    </td>
                                 </tr>
 
                                 <tbody>
@@ -66,7 +71,18 @@
         </div>
     </div>
 
+    <!-- jQuery  -->
     <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/detect.js"></script>
+    <script src="/assets/js/fastclick.js"></script>
+    <script src="/assets/js/jquery.slimscroll.js"></script>
+    <script src="/assets/js/jquery.blockUI.js"></script>
+    <script src="/assets/js/waves.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/jquery.nicescroll.js"></script>
+    <script src="/assets/js/jquery.scrollTo.min.js"></script>
+    <script src="/plugins/switchery/switchery.min.js"></script>
 
     <!-- Datatables-->
     <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -84,8 +100,19 @@
     <script src="/plugins/datatables/responsive.bootstrap.min.js"></script>
     <script src="/plugins/datatables/dataTables.scroller.min.js"></script>
 
+
+    <!-- Datatable init js -->
+    <script src="/assets/pages/datatables.init.js"></script>
+
+    <script src="/assets/js/jquery.core.js"></script>
+    <script src="/assets/js/jquery.app.js"></script>
+
     <script type="text/javascript">
         $('#datatable').dataTable();
+
+        var edit = function(id) {
+            location.replace("/product-register?id=" + id);
+        }
     </script>
 </section>
 </body>

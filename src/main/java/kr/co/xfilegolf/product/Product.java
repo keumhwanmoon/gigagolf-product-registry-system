@@ -1,8 +1,12 @@
 package kr.co.xfilegolf.product;
 
+import kr.co.xfilegolf.user.User;
 import lombok.Data;
+import org.springframework.orm.hibernate5.SessionHolder;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 /**
@@ -36,4 +40,25 @@ public class Product {
 
     @Column(name = "LAST_MODIFIED_ON")
     private LocalDateTime lastModifiedOn;
+
+    @PostPersist
+    public void postPersist() {
+
+        this.createdOn = LocalDateTime.now();
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        this.createdBy = user.getUsername();
+    }
+
+    @PostUpdate
+    public void postUpdate() {
+
+        this.lastModifiedOn = LocalDateTime.now();
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        this.lastModifiedBy = user.getUsername();
+    }
+
 }

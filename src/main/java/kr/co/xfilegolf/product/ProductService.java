@@ -23,4 +23,28 @@ public class ProductService {
 
         return productRepository.findAll();
     }
+
+    public void save(ProductForm productForm) {
+
+        Product product = null;
+
+        if (null == productForm.getId()) {
+            product = new Product();
+        } else {
+            product = productRepository.findOne(productForm.getId());
+        }
+
+        mapProduct(productForm, product);
+
+        productRepository.save(product);
+    }
+
+    public Product findOne(Long id) {
+        return productRepository.findOne(id);
+    }
+
+    private void mapProduct(ProductForm productForm, Product product) {
+        product.setCode(productForm.getCode());
+        product.setName(productForm.getName());
+    }
 }
