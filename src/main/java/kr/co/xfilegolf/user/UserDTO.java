@@ -43,4 +43,6 @@ public class UserDTO {
     @NotNull
     @Size(min = 1, message = "핸드폰 번호는 반드시 입력해야 합니다.")
     private String mobilePhoneNumber;
+
+    private String role;
 }

@@ -36,11 +36,8 @@ public class UserAddTest {
     public void userAddTest() {
 
         User user = new User();
-        Role roleUser = new Role();
-        Role roleAdmin = new Role();
-
-        roleUser.setRole("ROLE_USER");
-        roleAdmin.setRole("ROLE_ADMIN");
+        Role roleUser = new Role("ROLE_USER");
+        Role roleAdmin = new Role("ROLE_ADMIN");
 
         String passwordHash = encoder.encode("pwd");
 

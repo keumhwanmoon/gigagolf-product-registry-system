@@ -22,4 +22,8 @@ public class UserService {
     public Optional<User> findUserByLoginId(String loginId) {
         return Optional.ofNullable(userRepository.findByLoginId(loginId));
     }
+
+    public void save(User user) {
+        userRepository.save(user);
+    }
 }
