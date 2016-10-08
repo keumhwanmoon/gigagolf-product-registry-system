@@ -1,14 +1,12 @@
 package kr.co.xfilegolf.login;
 
 import kr.co.xfilegolf.user.User;
-import kr.co.xfilegolf.user.UserDTO;
+import kr.co.xfilegolf.user.UserForm;
 import kr.co.xfilegolf.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,19 +32,19 @@ public class RegisterController {
     }
 
     @GetMapping(value = "/register")
-    public ModelAndView register(UserDTO userDTO) {
+    public ModelAndView register(UserForm userForm) {
 
         return new ModelAndView("register");
     }
 
     @PostMapping(value = "/register")
-    public String registerProcess(@Valid UserDTO userDTO, BindingResult result) {
+    public String registerProcess(@Valid UserForm userForm, BindingResult result) {
 
-        Optional<User> user = userService.findUserByLoginId(userDTO.getLoginId());
+        Optional<User> user = userService.findUserByLoginId(userForm.getLoginId());
 
         if (user.isPresent()) {
 
-            FieldError fieldError = new FieldError("userDTO", "loginId", "이미 등록된 로그인ID입니다.");
+            FieldError fieldError = new FieldError("userForm", "loginId", "이미 등록된 로그인ID입니다.");
 
             result.addError(fieldError);
 
@@ -57,7 +55,7 @@ public class RegisterController {
             return "register";
         }
 
-        registerService.registerUser(userDTO);
+        registerService.registerUser(userForm);
 
         return "redirect:/register-success";
     }

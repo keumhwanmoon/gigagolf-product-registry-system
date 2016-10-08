@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/base">
+<head>
+    <title>DashBoard</title>
+</head>
+<body>
+
+<section layout:fragment="content">
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container">
+
+                <!-- Page-Title -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box">
+                            <ol class="breadcrumb pull-right">
+                                <li><a href="#">기가골프 제품 등록 시스템</a></li>
+                                <li class="active">제품 목록</li>
+                            </ol>
+                            <h4 class="page-title">제품 목록</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <h4 class="m-t-0 header-title"><b>제품 목록</b></h4>
+
+                            <table id="datatable" class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>사용자 권한</th>
+                                    <th>대리점명</th>
+                                    <th>대표자명</th>
+                                    <th>사업장 소재지</th>
+                                    <th>사업자 등록번호</th>
+                                    <th>대표전화</th>
+                                    <th>휴대전화</th>
+                                    <th>가입일자</th>
+                                    <th>최종 수정일자</th>
+                                    <th>활성여부</th>
+                                </tr>
+                                </thead>
+
+                                <tr th:each="user : ${userDTOList}">
+                                    <td th:text="${user.role}"></td>
+                                    <td th:text="${user.agencyName}"></td>
+                                    <td th:text="${user.presidentName}"></td>
+                                    <td th:text="${user.agencyAddress}"></td>
+                                    <td th:text="${user.businessNumber}"></td>
+                                    <td th:text="${user.phoneNumber}"></td>
+                                    <td th:text="${user.mobilePhoneNumber}"></td>
+                                    <!--<td th:text="${#temporals.format(user.createdOn, 'yyy-MM-dd')}"></td>-->
+                                    <!--<td th:text="${#temporals.format(user.lastModifiedOn, 'yyy-MM-dd')}"></td>-->
+                                    <td th:text="${user.activation}"></td>
+                                    <td class="actions">
+                                        <a th:href="${'javascript:edit(' + user.id + ')'}"
+                                           class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                        <a th:href="${'javascript:remove(' + user.id + ')'}"
+                                           class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Datatables-->
+    <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/plugins/datatables/dataTables.bootstrap.js"></script>
+    <script src="/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="/plugins/datatables/buttons.bootstrap.min.js"></script>
+    <script src="/plugins/datatables/jszip.min.js"></script>
+    <script src="/plugins/datatables/pdfmake.min.js"></script>
+    <script src="/plugins/datatables/vfs_fonts.js"></script>
+    <script src="/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="/plugins/datatables/buttons.print.min.js"></script>
+    <script src="/plugins/datatables/dataTables.fixedHeader.min.js"></script>
+    <script src="/plugins/datatables/dataTables.keyTable.min.js"></script>
+    <script src="/plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="/plugins/datatables/responsive.bootstrap.min.js"></script>
+    <script src="/plugins/datatables/dataTables.scroller.min.js"></script>
+
+
+    <!-- Datatable init js -->
+    <script src="/assets/pages/datatables.init.js"></script>
+
+    <!-- Sweet Alert js -->
+    <script src="/plugins/bootstrap-sweetalert/sweet-alert.min.js"></script>
+    <!--<script src="/assets/pages/jquery.sweet-alert.init.js"></script>-->
+
+    <script type="text/javascript">
+
+        $('#datatable').dataTable();
+
+        var edit = function (id) {
+            location.replace("/user-register?id=" + id);
+        };
+
+        var remove = function (id) {
+
+            //Warning Message
+            swal({
+                title: "삭제하시겠습니까?",
+                text: "삭제 후 되돌릴 수 없습니다.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: 'btn-warning',
+                confirmButtonText: "네. 삭제하겠습니다.",
+                cancelButtonText: "아니오.",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/user?id=" + id,
+                    success: function () {
+                        swal({
+                                    title: "삭제되었습니다!",
+                                    type: "success"
+                                },
+                                function () {
+                                    location.reload();
+                                });
+
+
+                    }
+                });
+
+            });
+        };
+    </script>
+</section>
+</body>
+</html>

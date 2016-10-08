@@ -37,7 +37,7 @@
         <a href="#" class="logo-lg"><i class="md md-equalizer"></i> <span>기가골프 제품 등록 시스템</span> </a>
     </div>
 
-    <form class="form-horizontal m-t-20" th:action="@{/register}" method="post" th:object="${userDTO}" novalidate>
+    <form class="form-horizontal m-t-20" th:action="@{/register}" method="post" th:object="${userForm}" novalidate>
         <div class="form-group">
             <div class="col-xs-12">
                 <input class="form-control" type="text" required="" placeholder="로그인ID" th:field="*{loginId}">
