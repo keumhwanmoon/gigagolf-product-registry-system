@@ -2,11 +2,10 @@ package kr.co.xfilegolf.product;
 
 import kr.co.xfilegolf.user.User;
 import lombok.Data;
-import org.springframework.orm.hibernate5.SessionHolder;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "PRODUCT")
 @Data
-public class Product {
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue
@@ -60,5 +59,4 @@ public class Product {
 
         this.lastModifiedBy = user.getUsername();
     }
-
 }

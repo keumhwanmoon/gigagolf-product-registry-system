@@ -44,9 +44,10 @@
                                     <th>사업자 등록번호</th>
                                     <th>대표전화</th>
                                     <th>휴대전화</th>
-                                    <th>가입일자</th>
-                                    <th>최종 수정일자</th>
+                                    <!--<th>가입일자</th>-->
+                                    <!--<th>최종 수정일자</th>-->
                                     <th>활성여부</th>
+                                    <th>수정/삭제</th>
                                 </tr>
                                 </thead>
 
@@ -60,7 +61,14 @@
                                     <td th:text="${user.mobilePhoneNumber}"></td>
                                     <!--<td th:text="${#temporals.format(user.createdOn, 'yyy-MM-dd')}"></td>-->
                                     <!--<td th:text="${#temporals.format(user.lastModifiedOn, 'yyy-MM-dd')}"></td>-->
-                                    <td th:text="${user.activation}"></td>
+                                    <td th:if="${user.activation}">
+                                        <span class="label label-table label-success"
+                                              th:text="${'승인'}"></span>
+                                    </td>
+                                    <td th:if="${!user.activation}">
+                                        <span class="label label-table label-waring"
+                                              th:text="${'미승인'}"></span>
+                                    </td>
                                     <td class="actions">
                                         <a th:href="${'javascript:edit(' + user.id + ')'}"
                                            class="on-default edit-row"><i class="fa fa-pencil"></i></a>
