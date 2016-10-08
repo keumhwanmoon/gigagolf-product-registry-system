@@ -1,10 +1,13 @@
 package kr.co.xfilegolf.user;
 
 import lombok.Data;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -55,6 +58,7 @@ public class User implements UserDetails {
     private boolean activation;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @Cascade(CascadeType.ALL)
     @CollectionTable(name = "ROLE", joinColumns = @JoinColumn(name = "LOGIN_ID"))
     private List<Role> roles;
 

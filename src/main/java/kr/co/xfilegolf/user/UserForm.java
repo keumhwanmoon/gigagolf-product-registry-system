@@ -12,6 +12,10 @@ import javax.validation.constraints.Size;
 @Data
 public class UserForm {
 
+    private Long id;
+
+    private boolean update;
+
     @NotNull
     @Size(min = 5, max = 15, message = "최소 5자에서, 최대 15자 사이의 로그인ID를 입력하십시오.")
     private String loginId;
@@ -43,6 +47,9 @@ public class UserForm {
     @NotNull
     @Size(min = 1, message = "핸드폰 번호는 반드시 입력해야 합니다.")
     private String mobilePhoneNumber;
+
+    @NotNull
+    private boolean activation;
 
     private String role;
 }
