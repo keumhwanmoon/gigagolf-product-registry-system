@@ -58,7 +58,6 @@ public class User implements UserDetails {
     private boolean activation;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @Cascade(CascadeType.ALL)
     @CollectionTable(name = "ROLE", joinColumns = @JoinColumn(name = "LOGIN_ID"))
     private List<Role> roles;
 

@@ -61,18 +61,15 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="form-group" th:if="*{id eq null}">
+                                    <div class="form-group">
                                         <label class="col-md-2 control-label" for="mobile-phone-number">사용자권한</label>
                                         <div class="col-md-10">
                                             <select class="form-control select" style="background-color: lightgrey"
-                                                    th:field="*{role}">>
+                                                    th:field="*{role}">
                                                 <option value="ROLE_ADMIN">관리자권한</option>
                                                 <option value="ROLE_USER">대리점권한</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div th:if="!*{id eq null}">
-                                        <input type="hidden" th:field="*{role}"/>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" for="agency-name">가맹점명</label>

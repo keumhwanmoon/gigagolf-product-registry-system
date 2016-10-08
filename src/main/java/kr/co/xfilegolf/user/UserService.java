@@ -1,6 +1,5 @@
 package kr.co.xfilegolf.user;
 
-import org.jooq.tools.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,20 +43,17 @@ public class UserService {
 
     public void save(UserForm userForm) {
 
-        User user = null;
+        User user = new User();
 
-        if (null == userForm.getId()) {
+        if (null != userForm.getId()) {
 
-            user = new User();
-            user.setLoginId(userForm.getLoginId());
-            user.setRoles(Arrays.asList(new Role(userForm.getRole())));
-        } else {
-
-            user = userRepository.findOne(userForm.getId());
+            user.setId(userForm.getId());
         }
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
+        user.setLoginId(userForm.getLoginId());
+        user.setRoles(Arrays.asList(new Role(userForm.getRole())));
         user.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
         user.setAgencyName(userForm.getAgencyName());
         user.setPresidentName(userForm.getPresidentName());
