@@ -90,6 +90,9 @@ public class UserController {
             userForm.setPhoneNumber(user.getPhoneNumber());
             userForm.setMobilePhoneNumber(user.getMobilePhoneNumber());
             userForm.setActivation(user.isActivation());
+        } else {
+
+            userForm.setActivation(true);
         }
 
         return "user-register";

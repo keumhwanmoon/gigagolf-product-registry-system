@@ -66,8 +66,8 @@
                                         <div class="col-md-10">
                                             <select class="form-control select" style="background-color: lightgrey"
                                                     th:field="*{role}">
+                                                <option value="ROLE_USER" th:selected="${true}">대리점권한</option>
                                                 <option value="ROLE_ADMIN">관리자권한</option>
-                                                <option value="ROLE_USER">대리점권한</option>
                                             </select>
                                         </div>
                                     </div>
