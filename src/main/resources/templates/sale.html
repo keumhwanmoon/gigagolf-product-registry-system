@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/base">
 <head>
-    <title>기가골프 제품 등록 시스템 - 제품 목록</title>
+    <title>기가골프 제품 등록 시스템 - 제품 판매 목록</title>
 </head>
 <body>
 
@@ -22,9 +22,9 @@
                         <div class="page-title-box">
                             <ol class="breadcrumb pull-right">
                                 <li><a href="#">기가골프 제품 등록 시스템</a></li>
-                                <li class="active">제품 목록</li>
+                                <li class="active">제품 판매 목록</li>
                             </ol>
-                            <h4 class="page-title">제품 목록</h4>
+                            <h4 class="page-title">제품 판매 목록</h4>
                         </div>
                     </div>
                 </div>
@@ -32,13 +32,14 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
-                            <h4 class="m-t-0 header-title"><b>제품 목록</b></h4>
+                            <h4 class="m-t-0 header-title"><b>제품 판매 목록</b></h4>
 
                             <table id="datatable" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th>제품코드</th>
-                                    <th>제품명</th>
+                                    <th>시리얼번호</th>
+                                    <th>판매일자</th>
                                     <th>등록 사용자</th>
                                     <th>등록일자</th>
                                     <th>수정 사용자</th>
@@ -47,17 +48,18 @@
                                 </tr>
                                 </thead>
 
-                                <tr th:each="product : ${products}">
-                                    <td th:text="${product.code}"></td>
-                                    <td th:text="${product.name}"></td>
-                                    <td th:text="${product.createdBy}"></td>
-                                    <td th:text="${#temporals.format(product.createdOn, 'yyy-MM-dd')}"></td>
-                                    <td th:text="${product.lastModifiedBy}"></td>
-                                    <td th:text="${product.lastModifiedOn}"></td>
+                                <tr th:each="sale : ${sales}">
+                                    <td th:text="${sale.productCode}"></td>
+                                    <td th:text="${sale.serialNumber}"></td>
+                                    <td th:text="${sale.salesOn}"></td>
+                                    <td th:text="${sale.createdBy}"></td>
+                                    <td th:text="${#temporals.format(sale.createdOn, 'yyy-MM-dd')}"></td>
+                                    <td th:text="${sale.lastModifiedBy}"></td>
+                                    <td th:text="${sale.lastModifiedOn}"></td>
                                     <td class="actions">
                                         <a
-                                           class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                        <a th:href="${'javascript:remove(' + product.id + ')'}"
+                                                class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                        <a th:href="${'javascript:remove(' + sale.id + ')'}"
                                            class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
@@ -102,7 +104,7 @@
         $('#datatable').dataTable();
 
         var edit = function (id) {
-            location.replace("/product-register?id=" + id);
+            location.replace("/sale-register?id=" + id);
         };
 
         var remove = function (id) {
@@ -120,15 +122,15 @@
             }, function () {
                 $.ajax({
                     type: "DELETE",
-                    url: "/product?id=" + id,
+                    url: "/sale?id=" + id,
                     success: function () {
                         swal({
-                            title: "삭제되었습니다!",
-                            type: "success"
-                        },
-                        function () {
-                            location.reload();
-                        });
+                                    title: "삭제되었습니다!",
+                                    type: "success"
+                                },
+                                function () {
+                                    location.reload();
+                                });
 
 
                     }

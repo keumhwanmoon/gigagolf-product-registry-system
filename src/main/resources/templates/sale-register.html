@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/base">
+<head>
+    <title>제품 판매 등록</title>
+</head>
+<body>
+
+<section layout:fragment="content">
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container">
+
+                <!-- Page-Title -->
+                <!-- Page-Title -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box">
+                            <ol class="breadcrumb pull-right">
+                                <li><a href="#">기가골프 제품 등록 시스템</a></li>
+                                <li class="active">제품 판매 등록</li>
+                            </ol>
+                            <h4 class="page-title">제품 판매 등록</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box">
+                            <h4 class="m-t-0 header-title"><b>제품 판매 등록</b></h4>
+
+                            <div class="row">
+                                <form class="form-horizontal" role="form" method="post"
+                                      th:axtion="@{/sale-register}" th:object="${saleForm}">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="product-code">제품코드</label>
+                                        <div class="col-md-10">
+                                            <select id="product-code" class="form-control select" style="background-color: lightgrey"
+                                                    th:field="*{productCode}">
+                                                <option value="">(선택)</option>
+                                                <option th:each="product : *{products}" th:value="${product.code}" th:text="${product.code} + ': ' + ${product.name}"></option>
+                                            </select>
+                                            <ul th:if="${#fields.hasErrors('productCode')}" class="parsley-errors-list filled">
+                                                <li th:errors="*{productCode}" class="parsley-required"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="serial-number">시리얼번호</label>
+                                        <div class="col-md-10">
+                                            <span class="col-md-6" style="padding-left: 0;">
+                                                <input type="text" id="serial-product-code" class="col-md-6 form-control" placeholder="제품 코드" disabled="disabled">
+                                            </span>
+                                            <span class="col-md-6" style="padding-right: 0;">
+                                                <input type="text" id="serial-number" th:field="*{serialNumber}"
+                                                       class="col-md-6 form-control" placeholder="시리얼번호">
+                                            </span>
+
+                                            <ul th:if="${#fields.hasErrors('serialNumber')}" class="parsley-errors-list filled">
+                                                <li th:errors="*{serialNumber}" class="parsley-required"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="sales-on">판매일자</label>
+                                        <div class="col-md-10">
+                                            <div class="input-group">
+                                                <input type="datetime" id="sales-on" th:field="*{salesOn}"
+                                                       class="form-control" placeholder="판매일자">
+                                                <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
+                                            </div>
+                                            <ul th:if="${#fields.hasErrors('salesOn')}" class="parsley-errors-list filled">
+                                                <li th:errors="*{salesOn}" class="parsley-required"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" name="id" th:field="*{id}"/>
+
+                                    <div style="text-align: right;">
+                                        <button type="submit" class="btn btn-purple waves-effect waves-light">등록</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+
+            $("#sales-on").datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true,
+                language: 'kr',
+                orientation: "top left"
+            });
+
+            $("#product-code").change(function() {
+                $("#serial-product-code").val($("#product-code").val());
+            });
+        </script>
+    </div>
+</section>
+</body>
+</html>
