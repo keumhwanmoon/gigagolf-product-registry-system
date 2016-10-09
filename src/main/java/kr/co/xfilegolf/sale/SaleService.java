@@ -1,8 +1,7 @@
 package kr.co.xfilegolf.sale;
 
-import kr.co.xfilegolf.user.User;
+import kr.co.xfilegolf.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -47,9 +46,7 @@ public class SaleService {
 
             sale.setLastModifiedOn(LocalDateTime.now());
 
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-            sale.setLastModifiedBy(user.getUsername());
+            sale.setLastModifiedBy(SecurityUtils.currentUserName());
         }
 
         mapProduct(saleForm, sale);

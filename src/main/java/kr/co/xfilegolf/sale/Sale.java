@@ -1,8 +1,7 @@
 package kr.co.xfilegolf.sale;
 
-import kr.co.xfilegolf.user.User;
+import kr.co.xfilegolf.SecurityUtils;
 import lombok.Data;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -48,18 +47,6 @@ public class Sale {
 
         this.createdOn = LocalDateTime.now();
 
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        this.createdBy = user.getUsername();
-    }
-
-    @PostUpdate
-    public void postUpdate() {
-
-        this.lastModifiedOn = LocalDateTime.now();
-
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        this.lastModifiedBy = user.getUsername();
+        this.createdBy = SecurityUtils.currentUserName();
     }
 }

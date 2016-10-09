@@ -4,11 +4,6 @@ import kr.co.xfilegolf.SecurityUtils;
 import kr.co.xfilegolf.product.Product;
 import kr.co.xfilegolf.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +29,7 @@ public class SaleController {
 
     @Autowired
     public SaleController(SaleService saleService, ProductService productService) {
+
         this.saleService = saleService;
         this.productService = productService;
     }
