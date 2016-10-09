@@ -38,7 +38,7 @@ public class SaleController {
         ModelAndView mv = new ModelAndView("sale");
 
         List<Sale> sales = saleService.findAll();
-
+        // TODO : sale DTO 추가 후 로직
         mv.addObject("sales", sales);
 
         return mv;
