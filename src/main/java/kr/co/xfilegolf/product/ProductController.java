@@ -27,7 +27,7 @@ public class ProductController {
     @GetMapping(value = "/product")
     public ModelAndView product() {
 
-        ModelAndView mv = new ModelAndView("product");
+        ModelAndView mv = new ModelAndView("/product/product");
 
         List<Product> products = productService.findAll();
 
@@ -53,14 +53,14 @@ public class ProductController {
             productForm.setName(product.getName());
         }
 
-        return "product-register";
+        return "/product/product-register";
     }
 
     @PostMapping(value = "/product-register")
     public String productRegister(@Valid ProductForm productForm, BindingResult result) {
 
         if (result.hasErrors()) {
-            return "product-register";
+            return "/product/product-register";
         }
 
         productService.save(productForm);

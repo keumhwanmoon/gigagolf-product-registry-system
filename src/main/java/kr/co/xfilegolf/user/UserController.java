@@ -32,7 +32,7 @@ public class UserController {
     @GetMapping(value = "/user")
     public ModelAndView userPage() {
 
-        ModelAndView mv = new ModelAndView("user");
+        ModelAndView mv = new ModelAndView("/user/user");
 
         List<User> users = userService.findAll();
 
@@ -95,7 +95,7 @@ public class UserController {
             userForm.setActivation(true);
         }
 
-        return "user-register";
+        return "/user/user-register";
     }
 
     @PostMapping(value = "/user-register")
@@ -111,12 +111,12 @@ public class UserController {
 
                 result.addError(fieldError);
 
-                return "user-register";
+                return "/user/user-register";
             }
         }
 
         if (result.hasErrors()) {
-            return "user-register";
+            return "/user/user-register";
         }
 
         userService.save(userForm);

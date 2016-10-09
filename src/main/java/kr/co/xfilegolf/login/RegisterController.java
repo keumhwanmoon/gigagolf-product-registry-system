@@ -34,7 +34,7 @@ public class RegisterController {
     @GetMapping(value = "/register")
     public ModelAndView register(UserForm userForm) {
 
-        return new ModelAndView("register");
+        return new ModelAndView("/register/register");
     }
 
     @PostMapping(value = "/register")
@@ -48,11 +48,11 @@ public class RegisterController {
 
             result.addError(fieldError);
 
-            return "register";
+            return "/register/register";
         }
 
         if (result.hasErrors()) {
-            return "register";
+            return "/register/register";
         }
 
         registerService.registerUser(userForm);
@@ -62,6 +62,6 @@ public class RegisterController {
 
     @GetMapping(value = "/register-success")
     public String registerSuccess() {
-        return "register-success";
+        return "/register/register-success";
     }
 }

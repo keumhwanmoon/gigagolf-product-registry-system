@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -35,7 +33,7 @@ public class SaleController {
     @GetMapping(value = "/sale")
     public ModelAndView product() {
 
-        ModelAndView mv = new ModelAndView("sale");
+        ModelAndView mv = new ModelAndView("/sale/sale");
 
         List<Sale> sales = saleService.findAll();
         // TODO : sale DTO 추가 후 로직
@@ -62,7 +60,7 @@ public class SaleController {
 
         setProducts(saleForm);
 
-        return "sale-register";
+        return "/sale/sale-register";
     }
 
     @PostMapping(value = "/sale-register")
@@ -72,7 +70,7 @@ public class SaleController {
 
             setProducts(saleForm);
 
-            return "sale-register";
+            return "/sale/sale-register";
         }
 
         saleService.save(saleForm);
