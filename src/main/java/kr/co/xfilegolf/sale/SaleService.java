@@ -47,7 +47,7 @@ public class SaleService {
     private void mapProduct(SaleForm saleForm, Sale sale) {
 
         sale.setProductCode(saleForm.getProductCode());
-        sale.setSerialNumber(saleForm.getProductCode() + saleForm.getSerialNumber());
+        sale.setSerialNumber(saleForm.getSerialNumber());
 
         LocalDate salesOn = LocalDate.parse(saleForm.getSalesOn());
 
