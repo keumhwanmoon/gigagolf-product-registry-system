@@ -12,7 +12,7 @@
                                 class="md md-dashboard"></i><span> Dashboard </span></a>
                     </li>
 
-                    <li class="has_sub">
+                    <li class="has_sub" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a href="#" class="waves-effect waves-primary"><i class="md md-perm-contact-cal"></i> <span> 사용자 관리 </span></a>
                         <ul class="list-unstyled">
                             <li><a href="/user">사용자 목록</a></li>
@@ -20,7 +20,7 @@
                         </ul>
                     </li>
 
-                    <li class="has_sub">
+                    <li class="has_sub" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a href="#" class="waves-effect waves-primary"><i class="md md-store"></i> <span> 제품 관리 </span></a>
                         <ul class="list-unstyled">
                             <li><a href="/product">제품 목록</a></li>
@@ -172,16 +172,16 @@
                 <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true">
                     <img  src="/assets/images/users/avatar-2.jpg" alt="user-img" class="img-circle">
                     <span class="user-info-span">
-                                    <h5 class="m-t-0 m-b-0">John Deo</h5>
+                                    <h5 class="m-t-0 m-b-0" sec:authentication="name">John Deo</h5>
                                     <p class="text-muted m-b-0">
                                         <small><i class="fa fa-circle text-success"></i> <span>Online</span></small>
                                     </p>
                                 </span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Profile</a></li>
-                    <li><a href="javascript:void(0)"><i class="md md-settings"></i> Settings</a></li>
-                    <li><a href="javascript:void(0)"><i class="md md-lock"></i> Lock screen</a></li>
+                    <!--<li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Profile</a></li>-->
+                    <!--<li><a href="javascript:void(0)"><i class="md md-settings"></i> Settings</a></li>-->
+                    <!--<li><a href="javascript:void(0)"><i class="md md-lock"></i> Lock screen</a></li>-->
                     <li><a href="/logout"><i class="md md-settings-power"></i> Logout</a></li>
                 </ul>
 

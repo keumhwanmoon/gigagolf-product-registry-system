@@ -71,4 +71,8 @@ public class SaleService {
 
         saleRepository.delete(id);
     }
+
+    public List<Sale> findByLoginId(String username) {
+        return saleRepository.findByCreatedBy(username);
+    }
 }
