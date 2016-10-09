@@ -1,9 +1,11 @@
 package kr.co.xfilegolf.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +50,7 @@ public class UserService {
         if (null != userForm.getId()) {
 
             user.setId(userForm.getId());
+            user.setLastModifiedOn(LocalDateTime.now()); // 수정시..
         }
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();

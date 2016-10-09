@@ -48,6 +48,7 @@ public class ProductController {
     public String productRegister(@RequestParam(name = "id", required = false, defaultValue = "0") Long id, ProductForm productForm) {
 
         if (0L != id) {
+
             Product product = productService.findOne(id);
 
             productForm.setId(product.getId());

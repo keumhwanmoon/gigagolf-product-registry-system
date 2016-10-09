@@ -1,8 +1,12 @@
 package kr.co.xfilegolf.product;
 
+import kr.co.xfilegolf.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -31,7 +35,14 @@ public class ProductService {
         if (null == productForm.getId()) {
             product = new Product();
         } else {
+
             product = productRepository.findOne(productForm.getId());
+
+            product.setLastModifiedOn(LocalDateTime.now());
+
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            product.setLastModifiedBy(user.getUsername());
         }
 
         mapProduct(productForm, product);
@@ -48,6 +59,7 @@ public class ProductService {
     }
 
     private void mapProduct(ProductForm productForm, Product product) {
+
         product.setCode(productForm.getCode());
         product.setName(productForm.getName());
     }
