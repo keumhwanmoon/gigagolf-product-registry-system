@@ -105,8 +105,16 @@
             });
 
             $("#product-code").change(function() {
-                $("#serial-product-code").val($("#product-code").val());
+                setSerialProductCode();
             });
+
+            $(document).ready(function () {
+                setSerialProductCode();
+            });
+
+            var setSerialProductCode = function() {
+                $("#serial-product-code").val($("#product-code").val());
+            }
         </script>
     </div>
 </section>

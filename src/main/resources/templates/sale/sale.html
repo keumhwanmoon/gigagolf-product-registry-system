@@ -37,7 +37,6 @@
                             <table id="datatable" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>제품코드</th>
                                     <th>시리얼번호</th>
                                     <th>판매일자</th>
                                     <th>등록 사용자</th>
@@ -48,16 +47,15 @@
                                 </tr>
                                 </thead>
 
-                                <tr th:each="sale : ${sales}">
-                                    <td th:text="${sale.productCode}"></td>
+                                <tr th:each="sale : ${saleDTOList}">
                                     <td th:text="${sale.serialNumber}"></td>
                                     <td th:text="${sale.salesOn}"></td>
                                     <td th:text="${sale.createdBy}"></td>
-                                    <td th:text="${#temporals.format(sale.createdOn, 'yyy-MM-dd')}"></td>
+                                    <td th:text="${sale.createdOn} ? ${#temporals.format(sale.createdOn, 'yyyy-MM-dd')} : ''"></td>
                                     <td th:text="${sale.lastModifiedBy}"></td>
-                                    <td th:text="${sale.lastModifiedOn}"></td>
+                                    <td th:text="${sale.lastModifiedOn} ? ${#temporals.format(sale.lastModifiedOn, 'yyyy-MM-dd')} : ''"></td>
                                     <td class="actions">
-                                        <a
+                                        <a th:href="${'javascript:edit(' + sale.id + ')'}"
                                                 class="on-default edit-row"><i class="fa fa-pencil"></i></a>
                                         <a th:href="${'javascript:remove(' + sale.id + ')'}"
                                            class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
@@ -131,8 +129,9 @@
                                 function () {
                                     location.reload();
                                 });
-
-
+                    },
+                    error: function() {
+                        alert("실패");
                     }
                 });
 

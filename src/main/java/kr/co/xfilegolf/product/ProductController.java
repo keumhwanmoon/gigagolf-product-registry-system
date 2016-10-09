@@ -37,9 +37,11 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "/product")
-    public void productDelete(@RequestParam(name = "id") Long id) {
+    public String productDelete(@RequestParam(name = "id") Long id) {
 
         productService.remove(id);
+
+        return "/product/product";
     }
 
     @GetMapping(value = "/product-register")

@@ -1,6 +1,5 @@
 package kr.co.xfilegolf.sale;
 
-import kr.co.xfilegolf.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +17,17 @@ public class SaleService {
 
     @Autowired
     public SaleService(SaleRepository saleRepository) {
+
         this.saleRepository = saleRepository;
     }
 
     public Sale findOne(Long id) {
+
         return saleRepository.findOne(id);
     }
 
     public List<Sale> findAll() {
+
         return saleRepository.findAll();
     }
 
@@ -34,8 +36,10 @@ public class SaleService {
         Sale sale = null;
 
         if (null == saleForm.getId()) {
+
             sale = new Sale();
         } else {
+
             sale = saleRepository.findOne(saleForm.getId());
         }
 
@@ -52,5 +56,10 @@ public class SaleService {
         LocalDate salesOn = LocalDate.parse(saleForm.getSalesOn());
 
         sale.setSalesOn(salesOn);
+    }
+
+    public void remove(Long id) {
+
+        saleRepository.delete(id);
     }
 }

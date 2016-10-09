@@ -31,11 +31,11 @@ public class Sale {
     @Column(name = "SALES_ON")
     private LocalDate salesOn;
 
-    @Column(name = "CREATED_ON")
-    private LocalDateTime createdOn;
-
     @Column(name = "CREATED_BY")
     private String createdBy;
+
+    @Column(name = "CREATED_ON")
+    private LocalDateTime createdOn;
 
     @Column(name = "LAST_MODIFIED_BY")
     private String lastModifiedBy;

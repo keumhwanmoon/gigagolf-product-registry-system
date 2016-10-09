@@ -5,6 +5,7 @@ import kr.co.xfilegolf.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author jason, Moon
@@ -36,10 +38,34 @@ public class SaleController {
         ModelAndView mv = new ModelAndView("/sale/sale");
 
         List<Sale> sales = saleService.findAll();
-        // TODO : sale DTO 추가 후 로직
-        mv.addObject("sales", sales);
+
+        List<SaleDTO> saleDTOList = sales.stream().map(
+                sale -> {
+                    SaleDTO saleDTO = new SaleDTO();
+
+                    saleDTO.setId(sale.getId());
+                    saleDTO.setSerialNumber(sale.getProductCode() + sale.getSerialNumber());
+                    saleDTO.setSalesOn(sale.getSalesOn());
+                    saleDTO.setCreatedBy(sale.getCreatedBy());
+                    saleDTO.setCreatedOn(sale.getCreatedOn());
+                    saleDTO.setLastModifiedBy(sale.getLastModifiedBy());
+                    saleDTO.setLastModifiedOn(sale.getLastModifiedOn());
+
+                    return saleDTO;
+                }
+        ).collect(Collectors.toList());
+
+        mv.addObject("saleDTOList", saleDTOList);
 
         return mv;
+    }
+
+    @DeleteMapping(value = "/sale")
+    public String saleDelete(@RequestParam(name = "id") Long id) {
+
+        saleService.remove(id);
+
+        return "/sale/sale";
     }
 
     @GetMapping(value = "/sale-register")

@@ -27,6 +27,7 @@ public class RegisterController {
 
     @Autowired
     public RegisterController(RegisterService registerService, UserService userService) {
+
         this.registerService = registerService;
         this.userService = userService;
     }

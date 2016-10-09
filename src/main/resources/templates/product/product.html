@@ -55,7 +55,7 @@
                                     <td th:text="${product.lastModifiedBy}"></td>
                                     <td th:text="${product.lastModifiedOn}"></td>
                                     <td class="actions">
-                                        <a
+                                        <a th:href="${'javascript:edit(' + product.id + ')'}"
                                            class="on-default edit-row"><i class="fa fa-pencil"></i></a>
                                         <a th:href="${'javascript:remove(' + product.id + ')'}"
                                            class="on-default remove-row"><i class="fa fa-trash-o"></i></a>

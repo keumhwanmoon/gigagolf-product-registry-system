@@ -125,8 +125,10 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/user")
-    public void userDelete(@RequestParam(name = "id") Long id) {
+    public String userDelete(@RequestParam(name = "id") Long id) {
 
         userService.remove(id);
+
+        return "/user/user";
     }
 }
