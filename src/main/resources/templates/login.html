@@ -38,7 +38,7 @@
         <a href="index.html" class="logo-lg"><i class="md md-equalizer"></i> <span>기가골프 제품 등록 시스템</span> </a>
     </div>
 
-    <form class="form-horizontal m-t-20" th:action="@{/login}" method="post">
+    <form id="loginForm" class="form-horizontal m-t-20" th:action="@{/login}" method="post">
 
         <div th:if="${param.error}" class="alert alert-error">
             Invalid username and password.
@@ -79,8 +79,8 @@
 
         <div class="form-group m-t-30">
             <div class="col-sm-7">
-                <a href="pages-recoverpw.html" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your
-                    password?</a>
+                <!--<a href="pages-recoverpw.html" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your-->
+                    <!--password?</a>-->
             </div>
             <div class="col-sm-5 text-right">
                 <a href="/register" class="text-muted">Create an account</a>
@@ -89,13 +89,13 @@
     </form>
 </div>
 
-
 <script>
     var resizefunc = [];
 </script>
 
 <!-- Main  -->
 <script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.cookie.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/detect.js"></script>
 <script src="/assets/js/fastclick.js"></script>
@@ -109,6 +109,28 @@
 <!-- Custom main Js -->
 <script src="/assets/js/jquery.core.js"></script>
 <script src="/assets/js/jquery.app.js"></script>
+<script type="text/javascript">
 
+    $("[name=loginid]").val($.cookie("loginid"));
+
+    var checked = $.cookie("rememberme");
+
+    if (checked) {
+        $("#checkbox-signup").prop("checked", true);
+    } else {
+        $("#checkbox-signup").prop("checked", false);
+    }
+
+
+    $("#loginForm").on("submit", function() {
+        if ($("#checkbox-signup").prop("checked")) {
+            $.cookie("rememberme", true);
+            $.cookie("loginid", $("[name=loginid]").val());
+        } else {
+            $.removeCookie("rememberme");
+            $.removeCookie("loginid");
+        }
+    });
+</script>
 </body>
 </html>
