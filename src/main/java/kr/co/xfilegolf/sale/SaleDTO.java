@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class SaleDTO {
 
     private Long id;
+    private String agencyName;
     private String serialNumber;
     private LocalDate salesOn;
     private LocalDateTime createdOn;

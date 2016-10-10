@@ -51,21 +51,7 @@ public class SaleController {
             sales = saleService.findByLoginId(username);
         }
 
-        List<SaleDTO> saleDTOList = sales.stream().map(
-                sale -> {
-                    SaleDTO saleDTO = new SaleDTO();
-
-                    saleDTO.setId(sale.getId());
-                    saleDTO.setSerialNumber(sale.getProductCode() + sale.getSerialNumber());
-                    saleDTO.setSalesOn(sale.getSalesOn());
-                    saleDTO.setCreatedBy(sale.getCreatedBy());
-                    saleDTO.setCreatedOn(sale.getCreatedOn());
-                    saleDTO.setLastModifiedBy(sale.getLastModifiedBy());
-                    saleDTO.setLastModifiedOn(sale.getLastModifiedOn());
-
-                    return saleDTO;
-                }
-        ).collect(Collectors.toList());
+        List<SaleDTO> saleDTOList = saleService.mapToDto(sales);
 
         mv.addObject("saleDTOList", saleDTOList);
 

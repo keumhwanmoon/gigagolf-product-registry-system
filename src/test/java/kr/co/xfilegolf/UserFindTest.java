@@ -31,6 +31,5 @@ public class UserFindTest {
         } else {
             System.out.println("user not found!");
         }
-
     }
 }

@@ -1,12 +1,14 @@
 package kr.co.xfilegolf.sale;
 
 import kr.co.xfilegolf.SecurityUtils;
+import kr.co.xfilegolf.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author jason, Moon
@@ -17,10 +19,13 @@ public class SaleService {
 
     private final SaleRepository saleRepository;
 
+    private final UserRepository userRepository;
+
     @Autowired
-    public SaleService(SaleRepository saleRepository) {
+    public SaleService(SaleRepository saleRepository, UserRepository userRepository) {
 
         this.saleRepository = saleRepository;
+        this.userRepository = userRepository;
     }
 
     public Sale findOne(Long id) {
@@ -71,5 +76,25 @@ public class SaleService {
 
     public List<Sale> findByLoginId(String username) {
         return saleRepository.findByCreatedBy(username);
+    }
+
+    public List<SaleDTO> mapToDto(List<Sale> sales) {
+
+        return sales.stream().map(
+                sale -> {
+                    SaleDTO saleDTO = new SaleDTO();
+
+                    saleDTO.setId(sale.getId());
+                    saleDTO.setAgencyName(userRepository.findByLoginId(sale.getCreatedBy()).getAgencyName());
+                    saleDTO.setSerialNumber(sale.getProductCode() + sale.getSerialNumber());
+                    saleDTO.setSalesOn(sale.getSalesOn());
+                    saleDTO.setCreatedBy(sale.getCreatedBy());
+                    saleDTO.setCreatedOn(sale.getCreatedOn());
+                    saleDTO.setLastModifiedBy(sale.getLastModifiedBy());
+                    saleDTO.setLastModifiedOn(sale.getLastModifiedOn());
+
+                    return saleDTO;
+                }
+        ).collect(Collectors.toList());
     }
 }
