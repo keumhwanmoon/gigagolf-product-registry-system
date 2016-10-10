@@ -39,14 +39,18 @@
                     </div>
 
                     <div class="col-sm-12 col-lg-4">
-                        <div class="widget-simple text-center card-box">
+                        <div class="widget-simple-chart text-center card-box">
+                            <div class="circliful-chart" data-dimension="90" id="effectivePercent"
+                                 data-text="85%" data-width="5" data-fontsize="14" data-percent="85" data-fgcolor="#3bafda" data-bgcolor="#ebeff2"></div>
                             <h3 id="effective" class="text-primary counter" th:text="${effective}">5685</h3>
                             <p class="text-muted">AS 대상 건수</p>
                         </div>
                     </div>
 
                     <div class="col-sm-12 col-lg-4">
-                        <div class="widget-simple text-center card-box">
+                        <div class="widget-simple-chart text-center card-box">
+                            <div class="circliful-chart" data-dimension="90" id="expiredPercent"
+                                 data-text="58%" data-width="5" data-fontsize="14" data-percent="58" data-fgcolor="#f76397" data-bgcolor="#ebeff2"></div>
                             <h3 id="expired" class="text-pink"><span class="counter" th:text="${expired}">12480</span></h3>
                             <p class="text-muted">AS 만료 건수</p>
                         </div>
@@ -303,7 +307,17 @@
         <footer class="footer text-right">
             2016 © 기가골프.
         </footer>
+            <script type="text/javascript" th:inline="javascript">
+                /*<![CDATA[*/
+                    var effectivePercent = /*[[${effectivePercent}]]*/
+                    var expiredPercent = /*[[${expiredPercent}]]*/
+                /*]]>*/
 
+                $("#effectivePercent").attr("data-percent", effectivePercent);
+                $("#effectivePercent").attr("data-text", effectivePercent + "%");
+                $("#expiredPercent").attr("data-percent", expiredPercent);
+                $("#expiredPercent").attr("data-text", expiredPercent + "%");
+            </script>
     </div>
     <!-- ============================================================== -->
     <!-- End Right content here -->

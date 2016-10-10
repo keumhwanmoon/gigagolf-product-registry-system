@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -61,10 +62,22 @@ public class DashBoardController {
 
         List<SaleDTO> saleDTOList = saleService.mapToDto(sales);
 
+        BigDecimal effectivePercent = BigDecimal.ZERO;
+        BigDecimal expiredPercent = BigDecimal.ZERO;
+
+        if (0 != count && 0 != effective) {
+            effectivePercent = new BigDecimal(effective).divide(new BigDecimal(count), 2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100));
+        }
+        if (0 != count && 0 != expired) {
+            expiredPercent = new BigDecimal(expired).divide(new BigDecimal(count), 2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100));
+        }
+
         mv.addObject("saleDTOList", saleDTOList);
         mv.addObject("count", count);
         mv.addObject("effective", effective);
+        mv.addObject("effectivePercent", effectivePercent);
         mv.addObject("expired", expired);
+        mv.addObject("expiredPercent", expiredPercent);
 
         return mv;
     }
