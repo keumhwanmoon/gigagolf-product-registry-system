@@ -38,10 +38,10 @@
                             <div class="row">
                                 <form class="form-horizontal" role="form" method="post"
                                       th:axtion="@{/user-register}" th:object="${userForm}">
-                                    <div class="form-group" th:if="*{id eq null}">
+                                    <div class="form-group">
                                         <label class="col-md-2 control-label" for="login-id">로그인ID</label>
                                         <div class="col-md-10">
-                                            <input type="text" id="login-id" th:field="*{loginId}"
+                                            <input type="text" id="login-id" th:field="*{loginId}" th:disabled="!*{id eq null}"
                                                    class="form-control" placeholder="로그인ID">
                                             <ul th:if="${#fields.hasErrors('loginId')}" class="parsley-errors-list filled">
                                                 <li th:errors="*{loginId}" class="parsley-required"></li>
