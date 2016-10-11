@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class UserDTO {
 
     private Long id;
+    private String loginId;
     private String role;
     private String agencyName;
     private String presidentName;

@@ -50,6 +50,7 @@ public class UserController {
                 userDTO.setRole("대리점");
             }
 
+            userDTO.setLoginId(user.getLoginId());
             userDTO.setAgencyName(user.getAgencyName());
             userDTO.setPresidentName(user.getPresidentName());
             userDTO.setAgencyAddress(user.getAgencyAddress());
