@@ -16,6 +16,7 @@ public class UserDTO {
     private String role;
     private String agencyName;
     private String presidentName;
+    private String personInCharge;
     private String agencyAddress;
     private String businessNumber;
     private String phoneNumber;

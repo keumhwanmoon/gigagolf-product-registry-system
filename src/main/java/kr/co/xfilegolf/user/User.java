@@ -36,6 +36,9 @@ public class User implements UserDetails {
     @Column(name = "PRESIDENT_NAME")
     private String presidentName;
 
+    @Column(name = "PERSON_IN_CHARGE")
+    private String personInCharge;
+
     @Column(name = "AGENCY_ADDRESS")
     private String agencyAddress;
 

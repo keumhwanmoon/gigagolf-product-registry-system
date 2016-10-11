@@ -33,6 +33,10 @@ public class UserForm {
     private String presidentName;
 
     @NotNull
+    @Size(min = 1, message = "담당자명은 반드시 입력해야 합니다.")
+    private String personInCharge;
+
+    @NotNull
     @Size(min = 1, message = "사업장 소재지는 반드시 입력해야 합니다.")
     private String agencyAddress;
 

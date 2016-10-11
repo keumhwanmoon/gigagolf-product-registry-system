@@ -69,6 +69,7 @@ public class UserService {
         user.setRoles(Arrays.asList(new Role(userForm.getRole())));
         user.setAgencyName(userForm.getAgencyName());
         user.setPresidentName(userForm.getPresidentName());
+        user.setPersonInCharge(userForm.getPersonInCharge());
         user.setAgencyAddress(userForm.getAgencyAddress());
         user.setBusinessNumber(userForm.getBusinessNumber());
         user.setPhoneNumber(userForm.getPhoneNumber());

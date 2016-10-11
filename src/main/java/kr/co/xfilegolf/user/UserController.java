@@ -53,6 +53,7 @@ public class UserController {
             userDTO.setLoginId(user.getLoginId());
             userDTO.setAgencyName(user.getAgencyName());
             userDTO.setPresidentName(user.getPresidentName());
+            userDTO.setPersonInCharge(user.getPersonInCharge());
             userDTO.setAgencyAddress(user.getAgencyAddress());
             userDTO.setBusinessNumber(user.getBusinessNumber());
             userDTO.setPhoneNumber(user.getPhoneNumber());
@@ -87,6 +88,7 @@ public class UserController {
 
             userForm.setAgencyName(user.getAgencyName());
             userForm.setPresidentName(user.getPresidentName());
+            userForm.setPersonInCharge(user.getPersonInCharge());
             userForm.setAgencyAddress(user.getAgencyAddress());
             userForm.setBusinessNumber(user.getBusinessNumber());
             userForm.setPhoneNumber(user.getPhoneNumber());

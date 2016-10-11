@@ -92,6 +92,16 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-2 control-label" for="president-name">담당자명</label>
+                                        <div class="col-md-10">
+                                            <input type="text" id="person-in-charge" th:field="*{personInCharge}"
+                                                   class="form-control" placeholder="담당자명">
+                                            <ul th:if="${#fields.hasErrors('personInCharge')}" class="parsley-errors-list filled">
+                                                <li th:errors="*{personInCharge}" class="parsley-required"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-2 control-label" for="agency-address">사업장 소재지</label>
                                         <div class="col-md-10">
                                             <input type="text" id="agency-address" th:field="*{agencyAddress}"
