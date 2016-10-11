@@ -37,6 +37,7 @@
                             <table id="datatable" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
+                                    <th>대리점명</th>
                                     <th>시리얼번호</th>
                                     <th>판매일자</th>
                                     <th>등록 사용자</th>
@@ -48,6 +49,7 @@
                                 </thead>
 
                                 <tr th:each="sale : ${saleDTOList}">
+                                    <td th:text="${sale.agencyName}"></td>
                                     <td th:text="${sale.serialNumber}"></td>
                                     <td th:text="${sale.salesOn}"></td>
                                     <td th:text="${sale.createdBy}"></td>
