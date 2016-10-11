@@ -1,5 +1,6 @@
 package kr.co.xfilegolf.user;
 
+import kr.co.xfilegolf.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -115,7 +116,11 @@ public class UserController {
             }
         }
 
-        if (result.hasErrors()) {
+        if (!SecurityUtils.hasAdminRole() && result.hasErrors()) {
+            return "/user/user-register";
+        } else if (SecurityUtils.hasAdminRole() && result.getErrorCount() > 1) {
+            return "/user/user-register";
+        } else if (SecurityUtils.hasAdminRole() && result.getErrorCount() == 1 && !result.hasFieldErrors("password")) {
             return "/user/user-register";
         }
 

@@ -51,7 +51,7 @@
                                     <div th:if="!*{id eq null}">
                                         <input type="hidden" th:field="*{loginId}"/>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" th:if="*{id eq null}">
                                         <label class="col-md-2 control-label" for="password">비밀번호</label>
                                         <div class="col-md-10">
                                             <input type="password" id="password" th:field="*{password}"

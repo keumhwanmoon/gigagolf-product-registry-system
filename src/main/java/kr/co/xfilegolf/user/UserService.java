@@ -1,5 +1,6 @@
 package kr.co.xfilegolf.user;
 
+import kr.co.xfilegolf.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -51,13 +52,21 @@ public class UserService {
 
             user.setId(userForm.getId());
             user.setLastModifiedOn(LocalDateTime.now()); // 수정시..
+
         }
 
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        if (null != userForm.getId() && SecurityUtils.hasAdminRole()){
+
+            user.setPassword(userRepository.findOne(userForm.getId()).getPassword()); // 기존 비밀번호 적용..
+
+        } else {
+
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
+        }
 
         user.setLoginId(userForm.getLoginId());
         user.setRoles(Arrays.asList(new Role(userForm.getRole())));
-        user.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
         user.setAgencyName(userForm.getAgencyName());
         user.setPresidentName(userForm.getPresidentName());
         user.setAgencyAddress(userForm.getAgencyAddress());
