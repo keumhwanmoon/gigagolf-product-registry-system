@@ -13,20 +13,20 @@ import java.util.Collection;
  */
 public class SecurityUtils {
 
+    private static Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
     public static boolean hasAdminRole() {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        Collection<? extends GrantedAuthority> authorities = getAuthentication().getAuthorities();
 
         return authorities.stream().filter(o -> o.getAuthority().equals("ROLE_ADMIN")).findAny().isPresent();
     }
 
     public static String currentUserName() {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        User user = (User) authentication.getPrincipal();
+        User user = (User) getAuthentication().getPrincipal();
 
         return user.getUsername();
     }
