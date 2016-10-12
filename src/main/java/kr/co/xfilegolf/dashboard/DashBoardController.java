@@ -49,7 +49,7 @@ public class DashBoardController {
             sales = saleRepository.findTop10ByOrderByCreatedOnDesc();
             count = saleRepository.count();
             effective = saleRepository.countBySalesOnBetween(yearAgo, today);
-            expired = saleRepository.countBySalesOnLessThan(today);
+            expired = saleRepository.countBySalesOnLessThan(yearAgo);
         } else {
 
             String username = SecurityUtils.currentUserName();
@@ -57,7 +57,7 @@ public class DashBoardController {
             sales = saleRepository.findTop10ByCreatedByOrderByCreatedOnDesc(username);
             count = saleRepository.countByCreatedBy(username);
             effective = saleRepository.countByCreatedByAndSalesOnBetween(username, yearAgo, today);
-            expired = saleRepository.countByCreatedByAndSalesOnLessThan(username, today);
+            expired = saleRepository.countByCreatedByAndSalesOnLessThan(username, yearAgo);
         }
 
         List<SaleDTO> saleDTOList = saleService.mapToDto(sales);
