@@ -86,7 +86,10 @@ public class SaleService {
 
                     saleDTO.setId(sale.getId());
                     saleDTO.setAgencyName(userRepository.findByLoginId(sale.getCreatedBy()).getAgencyName());
-                    saleDTO.setSerialNumber(sale.getProductCode() + sale.getSerialNumber());
+
+                    String serialNumber = sale.getProductCode().equals("NONE") ? sale.getSerialNumber() : sale.getProductCode() + sale.getSerialNumber();
+
+                    saleDTO.setSerialNumber(serialNumber);
                     saleDTO.setSalesOn(sale.getSalesOn());
                     saleDTO.setCreatedBy(sale.getCreatedBy());
                     saleDTO.setCreatedOn(sale.getCreatedOn());

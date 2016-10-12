@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author jason, Moon
@@ -58,5 +59,14 @@ public class ProductService {
 
         product.setCode(productForm.getCode());
         product.setName(productForm.getName());
+    }
+
+    public boolean isExists(String code) {
+
+        if ("NONE".equals(code)) { // 화면에서 코드없을을 체크 했을때는 "NONE" 값이 전달 되는데, 이때 중복 체크는 하지 않는다.
+            return false;
+        } else {
+            return productRepository.findByCode(code).isPresent();
+        }
     }
 }

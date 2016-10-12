@@ -111,7 +111,7 @@ public class UserController {
 
             if (user.isPresent()) {
 
-                FieldError fieldError = new FieldError("userForm", "loginId", "이미 등록된 로그인ID입니다.");
+                FieldError fieldError = new FieldError("userForm", "loginId", "이미 등록된 로그인ID입니다. : " + userForm.getLoginId());
 
                 result.addError(fieldError);
 

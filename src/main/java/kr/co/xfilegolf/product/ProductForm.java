@@ -16,7 +16,7 @@ public class ProductForm {
 
     @NotNull
     @Size(min = 3, max = 15)
-    private String code;
+    private String code = "NONE"; // 기본값 설정..
 
     @NotNull
     @Size(min = 3, max = 15)

@@ -44,7 +44,7 @@
                                             <select id="product-code" class="form-control select" style="background-color: lightgrey"
                                                     th:field="*{productCode}">
                                                 <option value="">(선택)</option>
-                                                <option th:each="product : *{products}" th:value="${product.code}" th:text="${product.code} + ': ' + ${product.name}"></option>
+                                                <option th:each="product : *{products}" th:value="${product.code}" th:text="!${product.code eq 'NONE'} ? ${product.code} + ': ' + ${product.name} : ${product.name}"></option>
                                             </select>
                                             <ul th:if="${#fields.hasErrors('productCode')}" class="parsley-errors-list filled">
                                                 <li th:errors="*{productCode}" class="parsley-required"></li>

@@ -3,6 +3,7 @@ package kr.co.xfilegolf.product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,6 +64,15 @@ public class ProductController {
 
     @PostMapping(value = "/product-register")
     public String productRegister(@Valid ProductForm productForm, BindingResult result) {
+
+        boolean isExists = productService.isExists(productForm.getCode());
+
+        if (isExists) {
+
+            FieldError fieldError = new FieldError("productForm", "code", "이미 등록된 제품코드입니다. : " + productForm.getCode());
+
+            result.addError(fieldError);
+        }
 
         if (result.hasErrors()) {
             return "/product/product-register";
