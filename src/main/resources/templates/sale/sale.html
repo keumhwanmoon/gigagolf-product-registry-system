@@ -101,7 +101,9 @@
 
     <script type="text/javascript">
 
-        $('#datatable').dataTable();
+        $('#datatable').dataTable({
+            "order": [[2, "desc"]]
+        });
 
         var edit = function (id) {
             location.replace("/sale-register?id=" + id);
