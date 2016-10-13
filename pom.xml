@@ -6,7 +6,7 @@
 	<groupId>kr.co.xfilegolf</groupId>
 	<artifactId>gigagolf-product-registry-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>gigagolf-product-registry-system</name>
 	<description>GigaGolf Product Registry System</description>
