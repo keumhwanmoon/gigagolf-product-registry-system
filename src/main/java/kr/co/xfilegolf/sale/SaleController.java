@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author jason, Moon
@@ -46,7 +45,7 @@ public class SaleController {
             sales = saleService.findAll();
         } else {
 
-            String username = SecurityUtils.currentUserName();
+            String username = SecurityUtils.currentUserLoginId();
 
             sales = saleService.findByLoginId(username);
         }

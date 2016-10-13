@@ -51,7 +51,7 @@ public class SaleService {
 
             sale.setLastModifiedOn(LocalDateTime.now());
 
-            sale.setLastModifiedBy(SecurityUtils.currentUserName());
+            sale.setLastModifiedBy(SecurityUtils.currentUserLoginId());
         }
 
         mapProduct(saleForm, sale);

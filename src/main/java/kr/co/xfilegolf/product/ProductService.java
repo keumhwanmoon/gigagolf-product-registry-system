@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author jason, Moon
@@ -39,7 +38,7 @@ public class ProductService {
 
             product.setLastModifiedOn(LocalDateTime.now());
 
-            product.setLastModifiedBy(SecurityUtils.currentUserName());
+            product.setLastModifiedBy(SecurityUtils.currentUserLoginId());
         }
 
         mapProduct(productForm, product);

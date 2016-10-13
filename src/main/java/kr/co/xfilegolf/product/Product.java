@@ -44,6 +44,6 @@ public class Product implements Serializable {
 
         this.createdOn = LocalDateTime.now();
 
-        this.createdBy = SecurityUtils.currentUserName();
+        this.createdBy = SecurityUtils.currentUserLoginId();
     }
 }

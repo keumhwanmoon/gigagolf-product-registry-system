@@ -2,18 +2,15 @@ package kr.co.xfilegolf.user;
 
 import kr.co.xfilegolf.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -138,5 +135,58 @@ public class UserController {
         userService.remove(id);
 
         return "/user/user";
+    }
+
+    @GetMapping(value = "/update")
+    public ModelAndView userUpdate() {
+
+        ModelAndView mv = new ModelAndView("/user/update");
+
+        mv.addObject("personInCharge", SecurityUtils.currentPersonInCharge());
+
+        return mv;
+    }
+
+    @GetMapping(value = "/verifyPassword")
+    @ResponseBody
+    public Map<String, Object> verifyPassword(@RequestParam(value = "password") String password) {
+
+        return Collections.singletonMap("success", userService.verifyPassword(password));
+    }
+
+    @GetMapping(value = "/user-modify")
+    public ModelAndView userModify(UserModifyForm userModifyForm) {
+
+        ModelAndView mv = new ModelAndView("/user/user-modify");
+
+        mapToForm(userModifyForm);
+
+        return mv;
+    }
+
+    @PostMapping(value = "/user-modify")
+    public String userModify(@Valid UserModifyForm userModifyForm, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "/user/user-modify";
+        }
+
+        userService.save(userModifyForm);
+
+        return "redirect:/";
+    }
+
+    private void mapToForm(UserModifyForm userModifyForm) {
+
+        User user = SecurityUtils.currentUser();
+
+        userModifyForm.setId(user.getId());
+        userModifyForm.setAgencyName(user.getAgencyName());
+        userModifyForm.setPresidentName(user.getPresidentName());
+        userModifyForm.setPersonInCharge(user.getPersonInCharge());
+        userModifyForm.setAgencyAddress(user.getAgencyAddress());
+        userModifyForm.setBusinessNumber(user.getBusinessNumber());
+        userModifyForm.setPhoneNumber(user.getPhoneNumber());
+        userModifyForm.setMobilePhoneNumber(user.getMobilePhoneNumber());
     }
 }

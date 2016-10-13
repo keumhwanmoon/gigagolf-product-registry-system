@@ -2,7 +2,6 @@ package kr.co.xfilegolf.user;
 
 import kr.co.xfilegolf.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -61,8 +60,7 @@ public class UserService {
 
         } else {
 
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            user.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
+            user.setPassword(encodePassword(userForm.getPassword()));
         }
 
         user.setLoginId(userForm.getLoginId());
@@ -79,8 +77,46 @@ public class UserService {
         userRepository.save(user);
     }
 
+    private String encodePassword(String rawPassword) {
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        return bCryptPasswordEncoder.encode(rawPassword);
+    }
+
+    public void save(UserModifyForm userModifyForm) {
+
+        User user = userRepository.findOne(userModifyForm.getId());
+
+        user.setPassword(encodePassword(userModifyForm.getPassword()));
+        user.setAgencyName(userModifyForm.getAgencyName());
+        user.setPresidentName(userModifyForm.getPresidentName());
+        user.setPersonInCharge(userModifyForm.getPersonInCharge());
+        user.setAgencyAddress(userModifyForm.getAgencyAddress());
+        user.setBusinessNumber(userModifyForm.getBusinessNumber());
+        user.setPhoneNumber(userModifyForm.getPhoneNumber());
+        user.setMobilePhoneNumber(userModifyForm.getMobilePhoneNumber());
+    }
+
     public void remove(Long id) {
 
         userRepository.delete(id);
+    }
+
+    public boolean verifyPassword(String rawPassword) {
+
+        String loginId = SecurityUtils.currentUserLoginId();
+
+        Optional<User> user = Optional.ofNullable(userRepository.findByLoginId(loginId));
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if (!user.isPresent()) {
+
+            return false;
+        } else {
+
+            return encoder.matches(rawPassword, user.get().getPassword());
+        }
     }
 }

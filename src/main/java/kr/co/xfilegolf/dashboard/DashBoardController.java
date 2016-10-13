@@ -52,7 +52,7 @@ public class DashBoardController {
             expired = saleRepository.countBySalesOnLessThan(yearAgo);
         } else {
 
-            String username = SecurityUtils.currentUserName();
+            String username = SecurityUtils.currentUserLoginId();
 
             sales = saleRepository.findTop10ByCreatedByOrderByCreatedOnDesc(username);
             count = saleRepository.countByCreatedBy(username);

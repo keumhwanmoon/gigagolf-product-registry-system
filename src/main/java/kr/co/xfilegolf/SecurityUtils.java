@@ -17,6 +17,10 @@ public class SecurityUtils {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
+    public static User currentUser() {
+        return (User) getAuthentication().getPrincipal();
+    }
+
     public static boolean hasAdminRole() {
 
         Collection<? extends GrantedAuthority> authorities = getAuthentication().getAuthorities();
@@ -24,10 +28,13 @@ public class SecurityUtils {
         return authorities.stream().filter(o -> o.getAuthority().equals("ROLE_ADMIN")).findAny().isPresent();
     }
 
-    public static String currentUserName() {
+    public static String currentUserLoginId() {
 
-        User user = (User) getAuthentication().getPrincipal();
+        return currentUser().getLoginId();
+    }
 
-        return user.getUsername();
+    public static String currentPersonInCharge() {
+
+        return currentUser().getPersonInCharge();
     }
 }
