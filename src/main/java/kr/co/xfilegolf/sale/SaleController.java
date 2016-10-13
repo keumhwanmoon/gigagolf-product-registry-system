@@ -6,6 +6,7 @@ import kr.co.xfilegolf.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -88,6 +89,15 @@ public class SaleController {
 
     @PostMapping(value = "/sale-register")
     public String saleRegister(@Valid SaleForm saleForm, BindingResult result) {
+
+        boolean isExists = saleService.isExists(saleForm.getProductCode(), saleForm.getSerialNumber());
+
+        if (isExists) {
+
+            FieldError fieldError = new FieldError("saleForm", "serialNumber", "이미 등록된 시리얼번호입니다. : " + saleForm.getSerialNumber());
+
+            result.addError(fieldError);
+        }
 
         if (result.hasErrors()) {
 

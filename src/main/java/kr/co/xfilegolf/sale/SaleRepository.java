@@ -1,11 +1,9 @@
 package kr.co.xfilegolf.sale;
 
-import org.codehaus.groovy.runtime.dgmimpl.arrays.IntegerArrayGetAtMetaMethod;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,4 +28,6 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
     long countBySalesOnLessThan(LocalDate today);
 
     long countByCreatedByAndSalesOnLessThan(String username, LocalDate today);
+
+    Sale findByProductCodeAndSerialNumber(String productCode, String serialNumber);
 }
