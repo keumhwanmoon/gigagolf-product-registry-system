@@ -34,90 +34,119 @@
 <div class="wrapper-page">
 
     <div class="text-center">
-        <a href="#" class="logo-lg"><i class="md md-equalizer"></i> <span>기가골프 제품 등록 시스템</span> </a>
+        <a href="/" class="logo-lg"><i class="md md-equalizer"></i> <span>기가골프 제품 등록 시스템</span> </a>
     </div>
 
-    <form class="form-horizontal m-t-20" th:action="@{/user-modify}" method="post" th:object="${userModifyForm}" novalidate>
+    <h4 class="text-center text-muted">개인정보 수정</h4>
+
+    <form class="form-horizontal m-t-20" th:action="@{/user-modify}" method="post" th:object="${userModifyForm}"
+          novalidate>
 
         <input type="hidden" name="id" th:field="*{id}"/>
 
         <div class="form-group">
             <div class="col-xs-12">
-                <input class="form-control" type="password" required="" placeholder="변경할 비밀번호" th:field="*{password}">
+                <label class="col-xs-3 control-label" for="password">비밀번호</label>
+                <div class="col-xs-9">
+                    <input id="password" class="form-control" type="password" required=""
+                           placeholder="변경할 비밀번호" th:field="*{password}">
+                    <i class="md md-vpn-key form-control-feedback l-h-34"></i>
+                </div>
                 <ul th:if="${#fields.hasErrors('password')}" class="parsley-errors-list filled">
                     <li th:errors="*{password}" class="parsley-required"></li>
                 </ul>
-                <i class="md md-vpn-key form-control-feedback l-h-34"></i>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-xs-12">
-                <input class="form-control" type="text" required="" placeholder="가맹점명" th:field="*{agencyName}">
+                <label class="col-xs-3 control-label" for="password">가맹점명</label>
+                <div class="col-xs-9">
+                    <input class="form-control" type="text" required="" placeholder="가맹점명" th:field="*{agencyName}">
+                    <i class="md md-store form-control-feedback l-h-34"></i>
+                </div>
                 <ul th:if="${#fields.hasErrors('agencyName')}" class="parsley-errors-list filled">
                     <li th:errors="*{agencyName}" class="parsley-required"></li>
                 </ul>
-                <i class="md md-store form-control-feedback l-h-34"></i>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-xs-12">
-                <input class="form-control" type="text" required="" placeholder="대표자명" th:field="*{presidentName}">
+                <label class="col-xs-3 control-label" for="password">대표자명</label>
+                <div class="col-xs-9">
+                    <input class="form-control" type="text" required="" placeholder="대표자명" th:field="*{presidentName}">
+                    <i class="md md-person form-control-feedback l-h-34"></i>
+                </div>
                 <ul th:if="${#fields.hasErrors('presidentName')}" class="parsley-errors-list filled">
                     <li th:errors="*{presidentName}" class="parsley-required"></li>
                 </ul>
-                <i class="md md-person form-control-feedback l-h-34"></i>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-xs-12">
-                <input class="form-control" type="text" required="" placeholder="사업장 소재지" th:field="*{agencyAddress}">
+                <label class="col-xs-3 control-label" for="password">사업장<br/>소재지</label>
+                <div class="col-xs-9">
+                    <input class="form-control" type="text" required="" placeholder="사업장 소재지" th:field="*{agencyAddress}">
+                    <i class="md md-location-on form-control-feedback l-h-34"></i>
+                </div>
                 <ul th:if="${#fields.hasErrors('agencyAddress')}" class="parsley-errors-list filled">
                     <li th:errors="*{agencyAddress}" class="parsley-required"></li>
                 </ul>
-                <i class="md md-location-on form-control-feedback l-h-34"></i>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-xs-12">
-                <input class="form-control" type="text" required="" placeholder="사업자 등록번호" th:field="*{businessNumber}">
+                <label class="col-xs-3 control-label" for="password">사업자<br/>등록번호</label>
+                <div class="col-xs-9">
+                    <input class="form-control" type="text" required="" placeholder="사업자 등록번호" th:field="*{businessNumber}">
+                    <i class="md md-info-outline form-control-feedback l-h-34"></i>
+                </div>
                 <ul th:if="${#fields.hasErrors('businessNumber')}" class="parsley-errors-list filled">
                     <li th:errors="*{businessNumber}" class="parsley-required"></li>
                 </ul>
-                <i class="md md-info-outline form-control-feedback l-h-34"></i>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-xs-12">
-                <input class="form-control" type="text" required="" placeholder="대표전화" th:field="*{phoneNumber}">
+                <label class="col-xs-3 control-label" for="password">대표전화</label>
+                <div class="col-xs-9">
+                    <input class="form-control" type="text" required="" placeholder="대표전화" th:field="*{phoneNumber}">
+                    <i class="md md-phone form-control-feedback l-h-34"></i>
+                </div>
                 <ul th:if="${#fields.hasErrors('phoneNumber')}" class="parsley-errors-list filled">
                     <li th:errors="*{phoneNumber}" class="parsley-required"></li>
                 </ul>
-                <i class="md md-phone form-control-feedback l-h-34"></i>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-xs-12">
-                <input class="form-control" type="text" required="" placeholder="담당자명" th:field="*{personInCharge}">
+                <label class="col-xs-3 control-label" for="password">담당자명</label>
+                <div class="col-xs-9">
+                    <input class="form-control" type="text" required="" placeholder="담당자명" th:field="*{personInCharge}">
+                    <i class="md md-face-unlock form-control-feedback l-h-34"></i>
+                </div>
                 <ul th:if="${#fields.hasErrors('personInCharge')}" class="parsley-errors-list filled">
                     <li th:errors="*{personInCharge}" class="parsley-required"></li>
                 </ul>
-                <i class="md md-face-unlock form-control-feedback l-h-34"></i>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-xs-12">
-                <input class="form-control" type="text" required="" placeholder="핸드폰 번호" th:field="*{mobilePhoneNumber}">
+                <label class="col-xs-3 control-label" for="password">핸드폰<br/>번호</label>
+                <div class="col-xs-9">
+                    <input class="form-control" type="text" required="" placeholder="핸드폰 번호"
+                           th:field="*{mobilePhoneNumber}">
+                    <i class="md md-phone-android form-control-feedback l-h-34"></i>
+                </div>
                 <ul th:if="${#fields.hasErrors('mobilePhoneNumber')}" class="parsley-errors-list filled">
                     <li th:errors="*{mobilePhoneNumber}" class="parsley-required"></li>
                 </ul>
-                <i class="md md-phone-android form-control-feedback l-h-34"></i>
             </div>
         </div>
 
