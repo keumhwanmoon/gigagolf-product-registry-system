@@ -65,4 +65,9 @@ public class RegisterController {
     public String registerSuccess() {
         return "/register/register-success";
     }
+
+    @GetMapping(value = "/confirm")
+    public String confirm() {
+        return "/register/confirm";
+    }
 }
