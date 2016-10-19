@@ -20,7 +20,6 @@ public class UserDTO {
     private String agencyAddress;
     private String businessNumber;
     private String phoneNumber;
-    private String mobilePhoneNumber;
     private LocalDateTime createdOn;
     private LocalDateTime lastModifiedOn;
     private boolean activation;

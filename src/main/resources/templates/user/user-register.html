@@ -132,16 +132,6 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label" for="mobile-phone-number">핸드폰 번호</label>
-                                        <div class="col-md-10">
-                                            <input type="text" id="mobile-phone-number" th:field="*{mobilePhoneNumber}"
-                                                   class="form-control" placeholder="핸드폰 번호">
-                                            <ul th:if="${#fields.hasErrors('mobilePhoneNumber')}" class="parsley-errors-list filled">
-                                                <li th:errors="*{mobilePhoneNumber}" class="parsley-required"></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
                                         <label class="col-md-2 control-label" for="mobile-phone-number">승인여부</label>
                                         <div class="col-md-10">
                                             <select class="form-control select" style="background-color: lightgrey"

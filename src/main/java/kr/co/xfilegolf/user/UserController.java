@@ -54,7 +54,6 @@ public class UserController {
             userDTO.setAgencyAddress(user.getAgencyAddress());
             userDTO.setBusinessNumber(user.getBusinessNumber());
             userDTO.setPhoneNumber(user.getPhoneNumber());
-            userDTO.setMobilePhoneNumber(user.getMobilePhoneNumber());
             userDTO.setCreatedOn(user.getCreatedOn());
             userDTO.setLastModifiedOn(user.getLastModifiedOn());
             userDTO.setActivation(user.isActivation());
@@ -89,7 +88,6 @@ public class UserController {
             userForm.setAgencyAddress(user.getAgencyAddress());
             userForm.setBusinessNumber(user.getBusinessNumber());
             userForm.setPhoneNumber(user.getPhoneNumber());
-            userForm.setMobilePhoneNumber(user.getMobilePhoneNumber());
             userForm.setActivation(user.isActivation());
         } else {
 
@@ -187,6 +185,5 @@ public class UserController {
         userModifyForm.setAgencyAddress(user.getAgencyAddress());
         userModifyForm.setBusinessNumber(user.getBusinessNumber());
         userModifyForm.setPhoneNumber(user.getPhoneNumber());
-        userModifyForm.setMobilePhoneNumber(user.getMobilePhoneNumber());
     }
 }

@@ -121,16 +121,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-xs-12">
-                <input class="form-control" type="text" required="" placeholder="핸드폰 번호" th:field="*{mobilePhoneNumber}">
-                <ul th:if="${#fields.hasErrors('mobilePhoneNumber')}" class="parsley-errors-list filled">
-                    <li th:errors="*{mobilePhoneNumber}" class="parsley-required"></li>
-                </ul>
-                <i class="md md-phone-android form-control-feedback l-h-34"></i>
-            </div>
-        </div>
-
         <input type="hidden" name="role" th:value="${'ROLE_USER'}">
 
         <div class="form-group text-right m-t-20">

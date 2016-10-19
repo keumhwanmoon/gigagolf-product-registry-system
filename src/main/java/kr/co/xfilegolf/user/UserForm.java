@@ -49,10 +49,6 @@ public class UserForm {
     private String phoneNumber;
 
     @NotNull
-    @Size(min = 1, message = "핸드폰 번호는 반드시 입력해야 합니다.")
-    private String mobilePhoneNumber;
-
-    @NotNull
     private boolean activation;
 
     private String role;
