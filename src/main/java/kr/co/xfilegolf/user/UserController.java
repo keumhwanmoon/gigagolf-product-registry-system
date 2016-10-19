@@ -1,6 +1,7 @@
 package kr.co.xfilegolf.user;
 
 import kr.co.xfilegolf.SecurityUtils;
+import org.jooq.tools.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,11 @@ public class UserController {
             if (user.getRoles().stream().filter(role -> role.getRole().equals("ROLE_ADMIN")).findAny().isPresent()) {
 
                 userDTO.setRole("관리자");
+            } else if (user.getRoles().stream().filter(role -> role.getRole().equals("ROLE_USER")).findAny().isPresent()) {
+
+                userDTO.setRole("개인");
             } else {
+
                 userDTO.setRole("대리점");
             }
 
@@ -111,6 +116,52 @@ public class UserController {
                 result.addError(fieldError);
 
                 return "/user/user-register";
+            }
+        }
+
+        // ROLE_USER Error Check
+        if (userForm.getRole().equals("ROLE_USER")) {
+
+            if (StringUtils.isEmpty(userForm.getAddress())) {
+
+                FieldError fieldError = new FieldError("userForm", "address", "주소는 반드시 입력해야 합니다.");
+
+                result.addError(fieldError);
+            }
+        } else {
+            if (StringUtils.isEmpty(userForm.getPresidentName())) {
+
+                FieldError fieldError = new FieldError("userForm", "presidentName", "대표자명은 반드시 입력해야합니다.");
+
+                result.addError(fieldError);
+            }
+
+            if (StringUtils.isEmpty(userForm.getAgencyName())) {
+
+                FieldError fieldError = new FieldError("userForm", "agencyName", "대리점명은 반드시 입력해야합니다.");
+
+                result.addError(fieldError);
+            }
+
+            if (StringUtils.isEmpty(userForm.getAgencyAddress())) {
+
+                FieldError fieldError = new FieldError("userForm", "agencyAddress", "대리점 주소는 반드시 입력해야합니다.");
+
+                result.addError(fieldError);
+            }
+
+            if (StringUtils.isEmpty(userForm.getBusinessNumber())) {
+
+                FieldError fieldError = new FieldError("userForm", "businessNumber", "사업자등록번호는 반드시 입력해야합니다.");
+
+                result.addError(fieldError);
+            }
+
+            if (StringUtils.isEmpty(userForm.getPhoneNumber())) {
+
+                FieldError fieldError = new FieldError("userForm", "phoneNumber", "대표전화는 반드시 입력해야합니다.");
+
+                result.addError(fieldError);
             }
         }
 

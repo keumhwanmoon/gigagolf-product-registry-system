@@ -45,7 +45,6 @@
                                     <th>사업장 소재지</th>
                                     <th>사업자 등록번호</th>
                                     <th>대표전화</th>
-                                    <th>휴대전화</th>
                                     <!--<th>가입일자</th>-->
                                     <!--<th>최종 수정일자</th>-->
                                     <th>활성여부</th>
@@ -62,7 +61,6 @@
                                     <td th:text="${user.agencyAddress}"></td>
                                     <td th:text="${user.businessNumber}"></td>
                                     <td th:text="${user.phoneNumber}"></td>
-                                    <td th:text="${user.mobilePhoneNumber}"></td>
                                     <!--<td th:text="${#temporals.format(user.createdOn, 'yyy-MM-dd')}"></td>-->
                                     <!--<td th:text="${#temporals.format(user.lastModifiedOn, 'yyy-MM-dd')}"></td>-->
                                     <td th:if="${user.activation}">
