@@ -68,10 +68,10 @@ public class UserService {
         user.setAgencyName(userForm.getAgencyName());
         user.setPresidentName(userForm.getPresidentName());
         user.setPersonInCharge(userForm.getPersonInCharge());
+        user.setAddress(userForm.getAddress());
         user.setAgencyAddress(userForm.getAgencyAddress());
         user.setBusinessNumber(userForm.getBusinessNumber());
         user.setPhoneNumber(userForm.getPhoneNumber());
-        user.setMobilePhoneNumber(userForm.getMobilePhoneNumber());
         user.setActivation(userForm.isActivation());
 
         userRepository.save(user);
@@ -95,7 +95,6 @@ public class UserService {
         user.setAgencyAddress(userModifyForm.getAgencyAddress());
         user.setBusinessNumber(userModifyForm.getBusinessNumber());
         user.setPhoneNumber(userModifyForm.getPhoneNumber());
-        user.setMobilePhoneNumber(userModifyForm.getMobilePhoneNumber());
     }
 
     public void remove(Long id) {

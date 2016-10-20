@@ -61,17 +61,18 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" for="mobile-phone-number">사용자권한</label>
+                                    <div class="form-group" id="divRole">
+                                        <label class="col-md-2 control-label" for="role">사용자권한</label>
                                         <div class="col-md-10">
-                                            <select class="form-control select" style="background-color: lightgrey"
+                                            <select id="role" class="form-control select" style="background-color: lightgrey"
                                                     th:field="*{role}">
-                                                <option value="ROLE_USER" th:selected="${true}">대리점권한</option>
+                                                <option value="ROLE_AGENCY" th:selected="${true}">대리점권한</option>
                                                 <option value="ROLE_ADMIN">관리자권한</option>
+                                                <option value="ROLE_USER">개인권한</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="divAgencyName">
                                         <label class="col-md-2 control-label" for="agency-name">가맹점명</label>
                                         <div class="col-md-10">
                                             <input type="text" id="agency-name" th:field="*{agencyName}"
@@ -81,7 +82,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="divPresidentName">
                                         <label class="col-md-2 control-label" for="president-name">대표자명</label>
                                         <div class="col-md-10">
                                             <input type="text" id="president-name" th:field="*{presidentName}"
@@ -91,7 +92,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="divAgencyAddress">
                                         <label class="col-md-2 control-label" for="agency-address">사업장 소재지</label>
                                         <div class="col-md-10">
                                             <input type="text" id="agency-address" th:field="*{agencyAddress}"
@@ -101,7 +102,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="divBusinessNumber">
                                         <label class="col-md-2 control-label" for="business-number">사업자 등록번호</label>
                                         <div class="col-md-10">
                                             <input type="text" id="business-number" th:field="*{businessNumber}"
@@ -111,7 +112,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="divPhoneNumber">
                                         <label class="col-md-2 control-label" for="phone-number">대표전화</label>
                                         <div class="col-md-10">
                                             <input type="text" id="phone-number" th:field="*{phoneNumber}"
@@ -131,20 +132,20 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" for="mobile-phone-number">핸드폰 번호</label>
+                                    <div class="form-group" id="divAddress" style="display: none;">
+                                        <label class="col-md-2 control-label" for="address">주소</label>
                                         <div class="col-md-10">
-                                            <input type="text" id="mobile-phone-number" th:field="*{mobilePhoneNumber}"
-                                                   class="form-control" placeholder="핸드폰 번호">
-                                            <ul th:if="${#fields.hasErrors('mobilePhoneNumber')}" class="parsley-errors-list filled">
-                                                <li th:errors="*{mobilePhoneNumber}" class="parsley-required"></li>
+                                            <input type="text" id="address" th:field="*{address}"
+                                                   class="form-control" placeholder="주소 : 간단히 입력해주세요.">
+                                            <ul th:if="${#fields.hasErrors('address')}" class="parsley-errors-list filled">
+                                                <li th:errors="*{address}" class="parsley-required"></li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" for="mobile-phone-number">승인여부</label>
+                                    <div class="form-group" id="divActivation">
+                                        <label class="col-md-2 control-label" for="activation">승인여부</label>
                                         <div class="col-md-10">
-                                            <select class="form-control select" style="background-color: lightgrey"
+                                            <select id="activation" class="form-control select" style="background-color: lightgrey"
                                                     th:field="*{activation}">
                                                 <option value="1">승인</option>
                                                 <option value="0">미승인</option>
@@ -166,6 +167,34 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $("#role").change(function () {
+
+            if ($(this).val() != "ROLE_USER") {
+
+                $("#divAddress").css("display", "none");
+
+                $("#divAgencyName").css("display", "block");
+                $("#divPresidentName").css("display", "block");
+                $("#divAgencyAddress").css("display", "block");
+                $("#divBusinessNumber").css("display", "block");
+                $("#divPhoneNumber").css("display", "block");
+            } else {
+
+                $("#divAddress").css("display", "block");
+
+                $("#divAgencyName").css("display", "none");
+                $("#divPresidentName").css("display", "none");
+                $("#divAgencyAddress").css("display", "none");
+                $("#divBusinessNumber").css("display", "none");
+                $("#divPhoneNumber").css("display", "none");
+            }
+        });
+
+        $(document).ready(function () {
+            $("#role").change();
+        });
+    </script>
     <footer class="footer text-right">
         기가골프 코리아. 주소: 경기도 오산시 수청로 8번길 27-8 (우) 18110. 전화: 1544-3168
         <!--2016 © 기가골프.-->

@@ -37,7 +37,6 @@ public class RegisterService {
         user.setAgencyAddress(userForm.getAgencyAddress());
         user.setBusinessNumber(userForm.getBusinessNumber());
         user.setPhoneNumber(userForm.getPhoneNumber());
-        user.setMobilePhoneNumber(userForm.getMobilePhoneNumber());
         user.setActivation(false);
         user.setRoles(Arrays.asList(new Role(userForm.getRole())));
 
