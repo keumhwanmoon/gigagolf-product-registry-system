@@ -3,6 +3,7 @@ package kr.co.xfilegolf.login;
 import kr.co.xfilegolf.user.User;
 import kr.co.xfilegolf.user.UserForm;
 import kr.co.xfilegolf.user.UserService;
+import kr.co.xfilegolf.user.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -51,6 +52,8 @@ public class RegisterController {
 
             return "/register/register";
         }
+
+        result = UserValidator.validation(userForm, result);
 
         if (result.hasErrors()) {
             return "/register/register";
