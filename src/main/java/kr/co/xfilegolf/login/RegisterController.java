@@ -1,7 +1,7 @@
 package kr.co.xfilegolf.login;
 
 import kr.co.xfilegolf.user.User;
-import kr.co.xfilegolf.user.UserForm;
+import kr.co.xfilegolf.user.UserRegisterForm;
 import kr.co.xfilegolf.user.UserService;
 import kr.co.xfilegolf.user.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,32 +34,32 @@ public class RegisterController {
     }
 
     @GetMapping(value = "/register")
-    public ModelAndView register(UserForm userForm) {
+    public ModelAndView register(UserRegisterForm userRegisterForm) {
 
         return new ModelAndView("/register/register");
     }
 
     @PostMapping(value = "/register")
-    public String registerProcess(@Valid UserForm userForm, BindingResult result) {
+    public String registerProcess(@Valid UserRegisterForm userRegisterForm, BindingResult result) {
 
-        Optional<User> user = userService.findUserByLoginId(userForm.getLoginId());
+        Optional<User> user = userService.findUserByLoginId(userRegisterForm.getLoginId());
 
         if (user.isPresent()) {
 
-            FieldError fieldError = new FieldError("userForm", "loginId", "이미 등록된 로그인ID입니다.");
+            FieldError fieldError = new FieldError("userRegisterForm", "loginId", "이미 등록된 로그인ID입니다.");
 
             result.addError(fieldError);
 
             return "/register/register";
         }
 
-        result = UserValidator.validation(userForm, result);
+        result = UserValidator.validation(userRegisterForm, result);
 
         if (result.hasErrors()) {
             return "/register/register";
         }
 
-        registerService.registerUser(userForm);
+        registerService.registerUser(userRegisterForm);
 
         return "redirect:/register-success";
     }

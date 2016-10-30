@@ -37,7 +37,7 @@
 
                             <div class="row">
                                 <form class="form-horizontal" role="form" method="post"
-                                      th:axtion="@{/user-register}" th:object="${userForm}">
+                                      th:axtion="@{/user-register}" th:object="${userRegisterForm}">
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" for="login-id">로그인ID</label>
                                         <div class="col-md-10">
@@ -62,13 +62,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group" id="divRole">
-                                        <label class="col-md-2 control-label" for="role">사용자권한</label>
+                                        <label class="col-md-2 control-label" for="role">권한</label>
                                         <div class="col-md-10">
                                             <select id="role" class="form-control select" style="background-color: lightgrey"
                                                     th:field="*{role}">
-                                                <option value="ROLE_AGENCY" th:selected="${true}">대리점권한</option>
-                                                <option value="ROLE_ADMIN">관리자권한</option>
-                                                <option value="ROLE_USER">개인권한</option>
+                                                <option value="ROLE_AGENCY" th:selected="${true}">대리점</option>
+                                                <option value="ROLE_ADMIN">관리자</option>
+                                                <option value="ROLE_USER">개인</option>
                                             </select>
                                         </div>
                                     </div>
@@ -93,20 +93,20 @@
                                         </div>
                                     </div>
                                     <div class="form-group" id="divAgencyAddress">
-                                        <label class="col-md-2 control-label" for="agency-address">사업장 소재지</label>
+                                        <label class="col-md-2 control-label" for="agency-address">주소</label>
                                         <div class="col-md-10">
                                             <input type="text" id="agency-address" th:field="*{agencyAddress}"
-                                                   class="form-control" placeholder="사업장 소재지">
+                                                   class="form-control" placeholder="주소">
                                             <ul th:if="${#fields.hasErrors('agencyAddress')}" class="parsley-errors-list filled">
                                                 <li th:errors="*{agencyAddress}" class="parsley-required"></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="form-group" id="divBusinessNumber">
-                                        <label class="col-md-2 control-label" for="business-number">사업자 등록번호</label>
+                                        <label class="col-md-2 control-label" for="business-number">사업자번호</label>
                                         <div class="col-md-10">
                                             <input type="text" id="business-number" th:field="*{businessNumber}"
-                                                   class="form-control" placeholder="사업자 등록번호">
+                                                   class="form-control" placeholder="사업자번호">
                                             <ul th:if="${#fields.hasErrors('businessNumber')}" class="parsley-errors-list filled">
                                                 <li th:errors="*{businessNumber}" class="parsley-required"></li>
                                             </ul>
@@ -167,7 +167,11 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
+
+    <!-- Sweet Alert js -->
+    <script src="/plugins/bootstrap-sweetalert/sweet-alert.min.js"></script>
+
+    <script type="text/javascript" th:inline="javascript">
         $("#role").change(function () {
 
             if ($(this).val() != "ROLE_USER") {
@@ -193,6 +197,16 @@
 
         $(document).ready(function () {
             $("#role").change();
+            /*<![CDATA[*/
+            var result = [[${result}]];
+            /*]]>*/
+            if (result == "success") {
+                setTimeout(function() {
+                    swal({
+                        title: "등록되었습니다!",
+                        type: "success"});
+                }, 1000);
+            }
         });
     </script>
     <footer class="footer text-right">

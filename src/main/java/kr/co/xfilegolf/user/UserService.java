@@ -43,36 +43,36 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void save(UserForm userForm) {
+    public void save(UserRegisterForm userRegisterForm) {
 
         User user = new User();
 
-        if (null != userForm.getId()) {
+        if (null != userRegisterForm.getId()) {
 
-            user.setId(userForm.getId());
+            user.setId(userRegisterForm.getId());
             user.setLastModifiedOn(LocalDateTime.now()); // 수정시..
 
         }
 
-        if (null != userForm.getId() && SecurityUtils.hasAdminRole()){
+        if (null != userRegisterForm.getId() && SecurityUtils.hasAdminRole()){
 
-            user.setPassword(userRepository.findOne(userForm.getId()).getPassword()); // 기존 비밀번호 적용..
+            user.setPassword(userRepository.findOne(userRegisterForm.getId()).getPassword()); // 기존 비밀번호 적용..
 
         } else {
 
-            user.setPassword(encodePassword(userForm.getPassword()));
+            user.setPassword(encodePassword(userRegisterForm.getPassword()));
         }
 
-        user.setLoginId(userForm.getLoginId());
-        user.setRoles(Arrays.asList(new Role(userForm.getRole())));
-        user.setAgencyName(userForm.getAgencyName());
-        user.setPresidentName(userForm.getPresidentName());
-        user.setPersonInCharge(userForm.getPersonInCharge());
-        user.setAddress(userForm.getAddress());
-        user.setAgencyAddress(userForm.getAgencyAddress());
-        user.setBusinessNumber(userForm.getBusinessNumber());
-        user.setPhoneNumber(userForm.getPhoneNumber());
-        user.setActivation(userForm.isActivation());
+        user.setLoginId(userRegisterForm.getLoginId());
+        user.setRoles(Arrays.asList(new Role(userRegisterForm.getRole())));
+        user.setAgencyName(userRegisterForm.getAgencyName());
+        user.setPresidentName(userRegisterForm.getPresidentName());
+        user.setPersonInCharge(userRegisterForm.getPersonInCharge());
+        user.setAddress(userRegisterForm.getAddress());
+        user.setAgencyAddress(userRegisterForm.getAgencyAddress());
+        user.setBusinessNumber(userRegisterForm.getBusinessNumber());
+        user.setPhoneNumber(userRegisterForm.getPhoneNumber());
+        user.setActivation(userRegisterForm.isActivation());
 
         userRepository.save(user);
     }
@@ -117,5 +117,9 @@ public class UserService {
 
             return encoder.matches(rawPassword, user.get().getPassword());
         }
+    }
+
+    public List<User> findByRolesIn(String role) {
+        return userRepository.findByRolesRoleIn(role);
     }
 }

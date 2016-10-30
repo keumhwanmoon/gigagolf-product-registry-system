@@ -1,14 +1,14 @@
 package kr.co.xfilegolf.user;
 
 import kr.co.xfilegolf.SecurityUtils;
-import org.jooq.tools.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.*;
@@ -29,11 +29,17 @@ public class UserController {
     }
 
     @GetMapping(value = "/user")
-    public ModelAndView userPage() {
+    public ModelAndView userPage(@RequestParam(name = "role", required = false) String role) {
 
         ModelAndView mv = new ModelAndView("/user/user");
 
-        List<User> users = userService.findAll();
+        List<User> users;
+
+        if (StringUtils.isEmpty(role)) {
+            users = userService.findAll();
+        } else {
+            users = userService.findByRolesIn(role);
+        }
 
         List<UserDTO> userDTOList = users.stream().map(user -> {
 
@@ -41,22 +47,24 @@ public class UserController {
 
             userDTO.setId(user.getId());
 
-            if (user.getRoles().stream().filter(role -> role.getRole().equals("ROLE_ADMIN")).findAny().isPresent()) {
+            if (user.getRoles().stream().filter(r -> r.getRole().equals("ROLE_ADMIN")).findAny().isPresent()) {
 
                 userDTO.setRole("관리자");
-            } else if (user.getRoles().stream().filter(role -> role.getRole().equals("ROLE_USER")).findAny().isPresent()) {
-
-                userDTO.setRole("개인");
-            } else {
+                userDTO.setAgencyAddress(user.getAgencyAddress());
+            } else if (user.getRoles().stream().filter(r -> r.getRole().equals("ROLE_AGENCY")).findAny().isPresent()) {
 
                 userDTO.setRole("대리점");
+                userDTO.setAgencyAddress(user.getAgencyAddress());
+            } else {
+
+                userDTO.setRole("개인");
+                userDTO.setAgencyAddress(user.getAddress()); // 개인사용자의 주소 표시를 위해
             }
 
             userDTO.setLoginId(user.getLoginId());
             userDTO.setAgencyName(user.getAgencyName());
             userDTO.setPresidentName(user.getPresidentName());
             userDTO.setPersonInCharge(user.getPersonInCharge());
-            userDTO.setAgencyAddress(user.getAgencyAddress());
             userDTO.setBusinessNumber(user.getBusinessNumber());
             userDTO.setPhoneNumber(user.getPhoneNumber());
             userDTO.setCreatedOn(user.getCreatedOn());
@@ -72,46 +80,43 @@ public class UserController {
     }
 
     @GetMapping(value = "/user-register")
-    public String userRegisterPage(@RequestParam(name = "id", required = false, defaultValue = "0") Long id, UserForm userForm) {
+    public String userRegisterPage(@RequestParam(name = "id", required = false, defaultValue = "0") Long id, UserRegisterForm userRegisterForm) {
 
         if (0L != id) {
 
             User user = userService.findOne(id);
 
-            userForm.setId(user.getId());
-            userForm.setLoginId(user.getLoginId());
+            userRegisterForm.setId(user.getId());
+            userRegisterForm.setLoginId(user.getLoginId());
 
-            if (user.getRoles().stream().filter(role -> role.getRole().equals("ROLE_ADMIN")).findAny().isPresent()) {
-                userForm.setRole("ROLE_ADMIN");
-            } else {
-                userForm.setRole("ROLE_USER");
-            }
+            setUserRole(userRegisterForm, user);
 
-            userForm.setAgencyName(user.getAgencyName());
-            userForm.setPresidentName(user.getPresidentName());
-            userForm.setPersonInCharge(user.getPersonInCharge());
-            userForm.setAgencyAddress(user.getAgencyAddress());
-            userForm.setBusinessNumber(user.getBusinessNumber());
-            userForm.setPhoneNumber(user.getPhoneNumber());
-            userForm.setActivation(user.isActivation());
+            userRegisterForm.setAgencyName(user.getAgencyName());
+            userRegisterForm.setPresidentName(user.getPresidentName());
+            userRegisterForm.setPersonInCharge(user.getPersonInCharge());
+            userRegisterForm.setAgencyAddress(user.getAgencyAddress());
+            userRegisterForm.setBusinessNumber(user.getBusinessNumber());
+            userRegisterForm.setPhoneNumber(user.getPhoneNumber());
+            userRegisterForm.setActivation(user.isActivation());
+            userRegisterForm.setAddress(user.getAddress());
         } else {
 
-            userForm.setActivation(true);
+            userRegisterForm.setActivation(true);
         }
 
         return "/user/user-register";
     }
 
     @PostMapping(value = "/user-register")
-    public String userRegister(@Valid UserForm userForm, BindingResult result) {
+    public String userRegister(@Valid UserRegisterForm userRegisterForm, BindingResult result, RedirectAttributes redirectAttributes) {
 
-        if (null == userForm.getId()) {
+        if (null == userRegisterForm.getId()) {
 
-            Optional<User> user = userService.findUserByLoginId(userForm.getLoginId());
+            Optional<User> user = userService.findUserByLoginId(userRegisterForm.getLoginId());
 
             if (user.isPresent()) {
 
-                FieldError fieldError = new FieldError("userForm", "loginId", "이미 등록된 로그인ID입니다. : " + userForm.getLoginId());
+                FieldError fieldError = new FieldError("userRegisterForm", "loginId", "이미 등록된 로그인ID입니다. : " + userRegisterForm.getLoginId());
 
                 result.addError(fieldError);
 
@@ -119,7 +124,7 @@ public class UserController {
             }
         }
 
-        result = UserValidator.validation(userForm, result);
+        result = UserValidator.validation(userRegisterForm, result);
 
         if (!SecurityUtils.hasAdminRole() && result.hasErrors()) {
             return "/user/user-register";
@@ -129,9 +134,11 @@ public class UserController {
             return "/user/user-register";
         }
 
-        userService.save(userForm);
+        userService.save(userRegisterForm);
 
-        return "redirect:/user";
+        redirectAttributes.addFlashAttribute("result", "success");
+
+        return "redirect:/user-register";
     }
 
     @DeleteMapping(value = "/user")
@@ -186,11 +193,25 @@ public class UserController {
         User user = SecurityUtils.currentUser();
 
         userModifyForm.setId(user.getId());
+
+        setUserRole(userModifyForm, user);
+
         userModifyForm.setAgencyName(user.getAgencyName());
         userModifyForm.setPresidentName(user.getPresidentName());
         userModifyForm.setPersonInCharge(user.getPersonInCharge());
         userModifyForm.setAgencyAddress(user.getAgencyAddress());
         userModifyForm.setBusinessNumber(user.getBusinessNumber());
         userModifyForm.setPhoneNumber(user.getPhoneNumber());
+        userModifyForm.setAddress(user.getAddress());
+    }
+
+    private void setUserRole(UserForm userForm, User user) {
+        if (user.getRoles().stream().filter(role -> role.getRole().equals("ROLE_ADMIN")).findAny().isPresent()) {
+            userForm.setRole("ROLE_ADMIN");
+        } else if (user.getRoles().stream().filter(role -> role.getRole().equals("ROLE_USER")).findAny().isPresent()) {
+            userForm.setRole("ROLE_USER");
+        } else {
+            userForm.setRole("ROLE_AGENT");
+        }
     }
 }

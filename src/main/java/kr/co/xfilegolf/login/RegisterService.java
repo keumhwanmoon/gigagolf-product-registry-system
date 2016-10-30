@@ -2,7 +2,7 @@ package kr.co.xfilegolf.login;
 
 import kr.co.xfilegolf.user.Role;
 import kr.co.xfilegolf.user.User;
-import kr.co.xfilegolf.user.UserForm;
+import kr.co.xfilegolf.user.UserRegisterForm;
 import kr.co.xfilegolf.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,21 +24,23 @@ public class RegisterService {
         this.userService = userService;
     }
 
-    public void registerUser(UserForm userForm) {
+    public void registerUser(UserRegisterForm userRegisterForm) {
 
         User user = new User();
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-        user.setLoginId(userForm.getLoginId());
-        user.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
-        user.setAgencyName(userForm.getAgencyName());
-        user.setPresidentName(userForm.getPresidentName());
-        user.setAgencyAddress(userForm.getAgencyAddress());
-        user.setBusinessNumber(userForm.getBusinessNumber());
-        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setLoginId(userRegisterForm.getLoginId());
+        user.setRoles(Arrays.asList(new Role(userRegisterForm.getRole())));
+        user.setPassword(bCryptPasswordEncoder.encode(userRegisterForm.getPassword()));
+        user.setAgencyName(userRegisterForm.getAgencyName());
+        user.setPresidentName(userRegisterForm.getPresidentName());
+        user.setAgencyAddress(userRegisterForm.getAgencyAddress());
+        user.setBusinessNumber(userRegisterForm.getBusinessNumber());
+        user.setPhoneNumber(userRegisterForm.getPhoneNumber());
         user.setActivation(false);
-        user.setRoles(Arrays.asList(new Role(userForm.getRole())));
+        user.setPersonInCharge(userRegisterForm.getPersonInCharge());
+        user.setAddress(userRegisterForm.getAddress());
 
         userService.save(user);
     }

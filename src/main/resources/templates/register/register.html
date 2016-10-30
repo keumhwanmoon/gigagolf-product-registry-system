@@ -39,14 +39,14 @@
 
     <h4 class="text-center text-muted">사용자 등록</h4>
 
-    <form class="form-horizontal m-t-20" th:action="@{/register}" method="post" th:object="${userForm}" novalidate>
+    <form class="form-horizontal m-t-20" th:action="@{/register}" method="post" th:object="${userRegisterForm}" novalidate>
 
         <div class="form-group">
             <div class="col-xs-12">
                 <select id="role" class="form-control select" style="background-color: lightgrey"
                         th:field="*{role}">
-                    <option value="ROLE_AGENCY" th:selected="${true}">대리점권한</option>
-                    <option value="ROLE_USER">개인권한</option>
+                    <option value="ROLE_USER" th:selected="${true}">개인</option>
+                    <option value="ROLE_AGENCY">대리점</option>
                 </select>
                 <i class="md md-lock form-control-feedback l-h-34"></i>
             </div>
@@ -94,7 +94,7 @@
 
         <div class="form-group" id="divAgencyAddress">
             <div class="col-xs-12">
-                <input class="form-control" type="text" required="" placeholder="사업장 소재지" th:field="*{agencyAddress}">
+                <input class="form-control" type="text" required="" placeholder="주소" th:field="*{agencyAddress}">
                 <ul th:if="${#fields.hasErrors('agencyAddress')}" class="parsley-errors-list filled">
                     <li th:errors="*{agencyAddress}" class="parsley-required"></li>
                 </ul>
@@ -104,7 +104,7 @@
 
         <div class="form-group" id="divBusinessNumber">
             <div class="col-xs-12">
-                <input class="form-control" type="text" required="" placeholder="사업자 등록번호" th:field="*{businessNumber}">
+                <input class="form-control" type="text" required="" placeholder="사업자번호" th:field="*{businessNumber}">
                 <ul th:if="${#fields.hasErrors('businessNumber')}" class="parsley-errors-list filled">
                     <li th:errors="*{businessNumber}" class="parsley-required"></li>
                 </ul>
@@ -138,6 +138,7 @@
                 <ul th:if="${#fields.hasErrors('address')}" class="parsley-errors-list filled">
                     <li th:errors="*{address}" class="parsley-required"></li>
                 </ul>
+                <p class="font-muted">예) 서울시 송파구</p>
                 <i class="md md-face-unlock form-control-feedback l-h-34"></i>
             </div>
         </div>

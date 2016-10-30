@@ -58,7 +58,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" th:if="!*{role eq 'ROLE_USER'}">
             <div class="col-xs-12">
                 <label class="col-xs-3 control-label" for="password">가맹점명</label>
                 <div class="col-xs-9">
@@ -71,7 +71,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" th:if="!*{role eq 'ROLE_USER'}">
             <div class="col-xs-12">
                 <label class="col-xs-3 control-label" for="password">대표자명</label>
                 <div class="col-xs-9">
@@ -84,11 +84,11 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" th:if="!*{role eq 'ROLE_USER'}">
             <div class="col-xs-12">
-                <label class="col-xs-3 control-label" for="password">사업장<br/>소재지</label>
+                <label class="col-xs-3 control-label" for="password">주소</label>
                 <div class="col-xs-9">
-                    <input class="form-control" type="text" required="" placeholder="사업장 소재지" th:field="*{agencyAddress}">
+                    <input class="form-control" type="text" required="" placeholder="주소" th:field="*{agencyAddress}">
                     <i class="md md-location-on form-control-feedback l-h-34"></i>
                 </div>
                 <ul th:if="${#fields.hasErrors('agencyAddress')}" class="parsley-errors-list filled">
@@ -97,9 +97,9 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" th:if="!*{role eq 'ROLE_USER'}">
             <div class="col-xs-12">
-                <label class="col-xs-3 control-label" for="password">사업자<br/>등록번호</label>
+                <label class="col-xs-3 control-label" for="password">사업자<br/>번호</label>
                 <div class="col-xs-9">
                     <input class="form-control" type="text" required="" placeholder="사업자 등록번호" th:field="*{businessNumber}">
                     <i class="md md-info-outline form-control-feedback l-h-34"></i>
@@ -110,7 +110,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" th:if="!*{role eq 'ROLE_USER'}">
             <div class="col-xs-12">
                 <label class="col-xs-3 control-label" for="password">대표전화</label>
                 <div class="col-xs-9">
@@ -136,16 +136,15 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" th:if="*{role eq 'ROLE_USER'}">
             <div class="col-xs-12">
-                <label class="col-xs-3 control-label" for="password">핸드폰<br/>번호</label>
+                <label class="col-xs-3 control-label" for="password">주소</label>
                 <div class="col-xs-9">
-                    <input class="form-control" type="text" required="" placeholder="핸드폰 번호"
-                           th:field="*{mobilePhoneNumber}">
-                    <i class="md md-phone-android form-control-feedback l-h-34"></i>
+                    <input class="form-control" type="text" required="" placeholder="주소" th:field="*{address}">
+                    <i class="md md-face-unlock form-control-feedback l-h-34"></i>
                 </div>
-                <ul th:if="${#fields.hasErrors('mobilePhoneNumber')}" class="parsley-errors-list filled">
-                    <li th:errors="*{mobilePhoneNumber}" class="parsley-required"></li>
+                <ul th:if="${#fields.hasErrors('address')}" class="parsley-errors-list filled">
+                    <li th:errors="*{address}" class="parsley-required"></li>
                 </ul>
             </div>
         </div>

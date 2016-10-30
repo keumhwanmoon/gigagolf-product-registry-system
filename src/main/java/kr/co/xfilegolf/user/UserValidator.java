@@ -12,49 +12,49 @@ import javax.validation.Valid;
  */
 public class UserValidator {
 
-    public static BindingResult validation(@Valid UserForm userForm, BindingResult result) {
+    public static BindingResult validation(@Valid UserRegisterForm userRegisterForm, BindingResult result) {
 
         // ROLE_USER Error Check
-        if (userForm.getRole().equals("ROLE_USER")) {
+        if (userRegisterForm.getRole().equals("ROLE_USER")) {
 
-            if (StringUtils.isEmpty(userForm.getAddress())) {
+            if (StringUtils.isEmpty(userRegisterForm.getAddress())) {
 
-                FieldError fieldError = new FieldError("userForm", "address", "주소는 반드시 입력해야 합니다.");
+                FieldError fieldError = new FieldError("userRegisterForm", "address", "주소는 반드시 입력해야 합니다.");
 
                 result.addError(fieldError);
             }
         } else {
-            if (StringUtils.isEmpty(userForm.getPresidentName())) {
+            if (StringUtils.isEmpty(userRegisterForm.getPresidentName())) {
 
-                FieldError fieldError = new FieldError("userForm", "presidentName", "대표자명은 반드시 입력해야합니다.");
-
-                result.addError(fieldError);
-            }
-
-            if (StringUtils.isEmpty(userForm.getAgencyName())) {
-
-                FieldError fieldError = new FieldError("userForm", "agencyName", "대리점명은 반드시 입력해야합니다.");
+                FieldError fieldError = new FieldError("userRegisterForm", "presidentName", "대표자명은 반드시 입력해야합니다.");
 
                 result.addError(fieldError);
             }
 
-            if (StringUtils.isEmpty(userForm.getAgencyAddress())) {
+            if (StringUtils.isEmpty(userRegisterForm.getAgencyName())) {
 
-                FieldError fieldError = new FieldError("userForm", "agencyAddress", "대리점 주소는 반드시 입력해야합니다.");
-
-                result.addError(fieldError);
-            }
-
-            if (StringUtils.isEmpty(userForm.getBusinessNumber())) {
-
-                FieldError fieldError = new FieldError("userForm", "businessNumber", "사업자등록번호는 반드시 입력해야합니다.");
+                FieldError fieldError = new FieldError("userRegisterForm", "agencyName", "대리점명은 반드시 입력해야합니다.");
 
                 result.addError(fieldError);
             }
 
-            if (StringUtils.isEmpty(userForm.getPhoneNumber())) {
+            if (StringUtils.isEmpty(userRegisterForm.getAgencyAddress())) {
 
-                FieldError fieldError = new FieldError("userForm", "phoneNumber", "대표전화는 반드시 입력해야합니다.");
+                FieldError fieldError = new FieldError("userRegisterForm", "agencyAddress", "대리점 주소는 반드시 입력해야합니다.");
+
+                result.addError(fieldError);
+            }
+
+            if (StringUtils.isEmpty(userRegisterForm.getBusinessNumber())) {
+
+                FieldError fieldError = new FieldError("userRegisterForm", "businessNumber", "사업자등록번호는 반드시 입력해야합니다.");
+
+                result.addError(fieldError);
+            }
+
+            if (StringUtils.isEmpty(userRegisterForm.getPhoneNumber())) {
+
+                FieldError fieldError = new FieldError("userRegisterForm", "phoneNumber", "대표전화는 반드시 입력해야합니다.");
 
                 result.addError(fieldError);
             }

@@ -7,12 +7,18 @@ import javax.validation.constraints.Size;
 
 /**
  * @author jason, Moon
- * @since 2016-10-13
+ * @since 2016-10-06
  */
 @Data
-public class UserModifyForm extends UserForm {
+public class UserRegisterForm extends UserForm {
 
     private Long id;
+
+    private boolean update;
+
+    @NotNull
+    @Size(min = 5, max = 15, message = "최소 5자에서, 최대 15자 사이의 로그인ID를 입력하십시오.")
+    private String loginId;
 
     @NotNull
     @Size(min = 8, max = 15, message = "최소 8자에서, 최대 15자 사이의 비밀번호를 입력하십시오.")
@@ -20,17 +26,20 @@ public class UserModifyForm extends UserForm {
 
     private String agencyName;
 
+    private String agencyAddress;
+
     private String presidentName;
 
     @NotNull
     @Size(min = 1, message = "담당자명은 반드시 입력해야 합니다.")
     private String personInCharge;
 
-    private String agencyAddress;
+    private String address;
 
     private String businessNumber;
 
     private String phoneNumber;
 
-    private String address;
+    @NotNull
+    private boolean activation;
 }

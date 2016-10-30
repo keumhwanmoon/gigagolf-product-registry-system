@@ -114,7 +114,20 @@
 
             var setSerialProductCode = function() {
                 $("#serial-product-code").val($("#product-code").val());
-            }
+            };
+
+            $(document).ready(function () {
+                /*<![CDATA[*/
+                var result = [[${result}]];
+                /*]]>*/
+                if (result == "success") {
+                    setTimeout(function() {
+                        swal({
+                            title: "등록되었습니다!",
+                            type: "success"});
+                    }, 1000);
+                }
+            });
         </script>
     </div>
     <footer class="footer text-right">

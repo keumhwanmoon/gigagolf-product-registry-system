@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
@@ -88,7 +89,7 @@ public class SaleController {
     }
 
     @PostMapping(value = "/sale-register")
-    public String saleRegister(@Valid SaleForm saleForm, BindingResult result) {
+    public String saleRegister(@Valid SaleForm saleForm, BindingResult result, RedirectAttributes redirectAttributes) {
 
         boolean isExists = saleService.isExists(saleForm.getProductCode(), saleForm.getSerialNumber());
 
@@ -107,6 +108,8 @@ public class SaleController {
         }
 
         saleService.save(saleForm);
+
+        redirectAttributes.addFlashAttribute("result", "success");
 
         return "redirect:/sale";
     }
