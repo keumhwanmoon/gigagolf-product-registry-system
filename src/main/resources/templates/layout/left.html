@@ -15,12 +15,12 @@
                     <li class="has_sub" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a href="#" class="waves-effect waves-primary"><i class="md md-perm-contact-cal"></i> <span> 사용자 관리 </span></a>
                         <ul class="list-unstyled">
-                            <li><a href="/user">사용자 목록</a></li>
+                            <li><a href="/user?role=ROLE_AGENCY">사용자 목록</a></li>
                             <li><a href="/user-register">사용자 등록</a></li>
                         </ul>
                     </li>
 
-                    <li class="has_sub">
+                    <li class="has_sub" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a href="#" class="waves-effect waves-primary"><i class="md md-store"></i> <span> 상품 관리 </span></a>
                         <ul class="list-unstyled">
                             <li><a href="/product">상품 목록</a></li>
@@ -29,10 +29,10 @@
                     </li>
 
                     <li class="has_sub">
-                        <a href="#" class="waves-effect waves-primary"><i class="md md-input"></i> <span> 판매 관리 </span></a>
+                        <a href="#" class="waves-effect waves-primary"><i class="md md-input"></i> <span> 판매(구매) 관리 </span></a>
                         <ul class="list-unstyled">
-                            <li><a href="/sale">판매 목록</a></li>
-                            <li><a href="/sale-register">판매 등록</a></li>
+                            <li><a href="/sale">판매(구매) 목록</a></li>
+                            <li><a href="/sale-register">판매(구매) 등록</a></li>
                         </ul>
                     </li>
 

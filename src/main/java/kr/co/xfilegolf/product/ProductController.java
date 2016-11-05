@@ -48,7 +48,9 @@ public class ProductController {
     }
 
     @GetMapping(value = "/product-register")
-    public String productRegister(@RequestParam(name = "id", required = false, defaultValue = "0") Long id, ProductForm productForm) {
+    public ModelAndView productRegister(@RequestParam(name = "id", required = false, defaultValue = "0") Long id, ProductForm productForm) {
+
+        ModelAndView mv = new ModelAndView("/product/product-register");
 
         if (0L != id) {
 
@@ -57,9 +59,11 @@ public class ProductController {
             productForm.setId(product.getId());
             productForm.setCode(product.getCode());
             productForm.setName(product.getName());
+
+            mv.addObject("productForm", productForm);
         }
 
-        return "/product/product-register";
+        return mv;
     }
 
     @PostMapping(value = "/product-register")

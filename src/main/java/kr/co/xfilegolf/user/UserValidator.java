@@ -23,6 +23,13 @@ public class UserValidator {
 
                 result.addError(fieldError);
             }
+
+            if (StringUtils.isEmpty(userRegisterForm.getPersonInCharge())) {
+
+                FieldError fieldError = new FieldError("userRegisterForm", "personInCharge", "이름은 반드시 입력해야 합니다.");
+
+                result.addError(fieldError);
+            }
         } else {
             if (StringUtils.isEmpty(userRegisterForm.getPresidentName())) {
 
@@ -48,6 +55,13 @@ public class UserValidator {
             if (StringUtils.isEmpty(userRegisterForm.getBusinessNumber())) {
 
                 FieldError fieldError = new FieldError("userRegisterForm", "businessNumber", "사업자등록번호는 반드시 입력해야합니다.");
+
+                result.addError(fieldError);
+            }
+
+            if (StringUtils.isEmpty(userRegisterForm.getPersonInCharge())) {
+
+                FieldError fieldError = new FieldError("userRegisterForm", "personInCharge", "담당자명은 반드시 입력해야 합니다.");
 
                 result.addError(fieldError);
             }

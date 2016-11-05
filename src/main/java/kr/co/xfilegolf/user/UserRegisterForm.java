@@ -30,8 +30,6 @@ public class UserRegisterForm extends UserForm {
 
     private String presidentName;
 
-    @NotNull
-    @Size(min = 1, message = "담당자명은 반드시 입력해야 합니다.")
     private String personInCharge;
 
     private String address;

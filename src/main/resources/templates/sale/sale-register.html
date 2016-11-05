@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/base">
 <head>
-    <title>제품 판매 등록</title>
+    <title>상품 판매(구매) 등록</title>
 </head>
 <body>
 
@@ -23,9 +23,9 @@
                         <div class="page-title-box">
                             <ol class="breadcrumb pull-right">
                                 <li><a href="#">기가골프 제품 등록 시스템</a></li>
-                                <li class="active">제품 판매 등록</li>
+                                <li class="active">상품 판매(구매) 등록</li>
                             </ol>
-                            <h4 class="page-title">제품 판매 등록</h4>
+                            <h4 class="page-title">상품 판매(구매) 등록</h4>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box">
-                            <h4 class="m-t-0 header-title"><b>제품 판매 등록</b></h4>
+                            <h4 class="m-t-0 header-title"><b>상품 판매(구매) 등록</b></h4>
 
                             <div class="row">
                                 <form class="form-horizontal" role="form" method="post"
@@ -94,7 +94,7 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
+        <script type="text/javascript" th:inline="javascript">
 
             $("#sales-on").datepicker({
                 format: 'yyyy-mm-dd',

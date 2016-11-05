@@ -17,7 +17,6 @@
             <div class="container">
 
                 <!-- Page-Title -->
-                <!-- Page-Title -->
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-title-box">
@@ -71,10 +70,14 @@
 
                                     <script type="text/javascript" th:inline="javascript">
                                         /*<![CDATA[*/
-                                        var code = [[${code}]];
+                                        var code = [[${productForm.code}]];
 
-                                        if ("NONE" == code || "" == code|| null == code) {
+                                        if ("NONE" == code) {
+                                            $("#empty-product-code").prop("checked", true);
+                                        } else if (!code) {
                                             $("#product-code").val("");
+                                        } else {
+                                            $("#product-code").val(code);
                                         }
 
                                         /*]]>*/

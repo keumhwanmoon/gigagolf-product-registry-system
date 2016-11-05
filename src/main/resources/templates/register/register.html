@@ -124,7 +124,7 @@
 
         <div class="form-group" id="divPersonInCharge">
             <div class="col-xs-12">
-                <input class="form-control" type="text" required="" placeholder="담당자명" th:field="*{personInCharge}">
+                <input class="form-control" id="txtPersonInCharge" type="text" required="" placeholder="담당자명" th:field="*{personInCharge}">
                 <ul th:if="${#fields.hasErrors('personInCharge')}" class="parsley-errors-list filled">
                     <li th:errors="*{personInCharge}" class="parsley-required"></li>
                 </ul>
@@ -177,6 +177,8 @@
 
         if ($(this).val() != "ROLE_USER") {
 
+            $("#txtPersonInCharge").attr("placeHolder", "담당자명");
+
             $("#divAddress").css("display", "none");
 
             $("#divAgencyName").css("display", "block");
@@ -185,6 +187,8 @@
             $("#divBusinessNumber").css("display", "block");
             $("#divPhoneNumber").css("display", "block");
         } else {
+
+            $("#txtPersonInCharge").attr("placeHolder", "이름");
 
             $("#divAddress").css("display", "block");
 
