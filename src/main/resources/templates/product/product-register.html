@@ -22,9 +22,11 @@
                         <div class="page-title-box">
                             <ol class="breadcrumb pull-right">
                                 <li><a href="#">기가골프 제품 등록 시스템</a></li>
-                                <li class="active">상품 등록</li>
+                                <li class="active" th:if="${param.id eq null}">상품 등록</li>
+                                <li class="active" th:if="${param.id ne null}">상품 수정</li>
                             </ol>
-                            <h4 class="page-title">상품 등록</h4>
+                            <h4 class="page-title" th:if="${param.id eq null}">상품 등록</h4>
+                            <h4 class="page-title" th:if="${param.id ne null}">상품 수정</h4>
                         </div>
                     </div>
                 </div>
@@ -32,7 +34,10 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box">
-                            <h4 class="m-t-0 header-title"><b>상품 등록</b></h4>
+                            <h4 class="m-t-0 header-title">
+                                <b th:if="${param.id eq null}">상품 등록</b>
+                                <b th:if="${param.id ne null}">상품 수정</b>
+                            </h4>
 
                             <div class="row">
                                 <form class="form-horizontal" role="form" method="post"

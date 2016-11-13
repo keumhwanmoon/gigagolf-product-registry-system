@@ -30,4 +30,6 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
     long countByCreatedByAndSalesOnLessThan(String username, LocalDate today);
 
     Sale findByProductCodeAndSerialNumber(String productCode, String serialNumber);
+
+    Sale findByIdNotAndProductCodeAndSerialNumber(Long id, String productCode, String serialNumber);
 }

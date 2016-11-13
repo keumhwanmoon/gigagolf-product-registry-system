@@ -91,7 +91,15 @@ public class SaleController {
     @PostMapping(value = "/sale-register")
     public String saleRegister(@Valid SaleForm saleForm, BindingResult result, RedirectAttributes redirectAttributes) {
 
-        boolean isExists = saleService.isExists(saleForm.getProductCode(), saleForm.getSerialNumber());
+        boolean isExists ;
+
+        if (saleForm.getId() != null) {
+
+            isExists = saleService.isExists(saleForm.getId(), saleForm.getProductCode(), saleForm.getSerialNumber());
+        } else {
+
+            isExists = saleService.isExists(saleForm.getProductCode(), saleForm.getSerialNumber());
+        }
 
         if (isExists) {
 

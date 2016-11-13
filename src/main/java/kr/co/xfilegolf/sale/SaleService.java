@@ -2,6 +2,7 @@ package kr.co.xfilegolf.sale;
 
 import kr.co.xfilegolf.SecurityUtils;
 import kr.co.xfilegolf.user.UserRepository;
+import org.jooq.tools.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -85,8 +86,10 @@ public class SaleService {
                 sale -> {
                     SaleDTO saleDTO = new SaleDTO();
 
+                    String agencyName = userRepository.findByLoginId(sale.getCreatedBy()).getAgencyName();
+
                     saleDTO.setId(sale.getId());
-                    saleDTO.setAgencyName(userRepository.findByLoginId(sale.getCreatedBy()).getAgencyName());
+                    saleDTO.setAgencyName(StringUtils.isBlank(agencyName) ? "개인" : agencyName);
 
                     String serialNumber = sale.getProductCode().equals("NONE") ? sale.getSerialNumber() : sale.getProductCode() + sale.getSerialNumber();
 
@@ -100,6 +103,10 @@ public class SaleService {
                     return saleDTO;
                 }
         ).collect(Collectors.toList());
+    }
+
+    public boolean isExists(Long id, String productCode, String serialNumber) {
+        return Optional.ofNullable(saleRepository.findByIdNotAndProductCodeAndSerialNumber(id, productCode, serialNumber)).isPresent();
     }
 
     public boolean isExists(String productCode, String serialNumber) {
