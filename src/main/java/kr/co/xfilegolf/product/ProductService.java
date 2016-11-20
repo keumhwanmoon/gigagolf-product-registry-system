@@ -62,10 +62,11 @@ public class ProductService {
 
     public boolean isExists(String code) {
 
-        if ("NONE".equals(code)) { // 화면에서 코드없을을 체크 했을때는 "NONE" 값이 전달 되는데, 이때 중복 체크는 하지 않는다.
-            return false;
-        } else {
-            return productRepository.findByCode(code).isPresent();
-        }
+        // 화면에서 코드없을을 체크 했을때는 "NONE" 값이 전달 되는데, 이때 중복 체크는 하지 않는다.
+        return !"NONE".equals(code) && productRepository.findByCode(code).isPresent();
+    }
+
+    public boolean isExists(Long id, String code) {
+        return !"NONE".equals(code) && productRepository.findByIdNotAndCode(id, code).isPresent();
     }
 }

@@ -14,4 +14,6 @@ import java.util.Optional;
 @Transactional
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findByCode(String code);
+
+    Optional<Product> findByIdNotAndCode(Long id, String code);
 }

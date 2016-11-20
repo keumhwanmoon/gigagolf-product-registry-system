@@ -69,7 +69,13 @@ public class ProductController {
     @PostMapping(value = "/product-register")
     public String productRegister(@Valid ProductForm productForm, BindingResult result) {
 
-        boolean isExists = productService.isExists(productForm.getCode());
+        boolean isExists ;
+
+        if (productForm.getId() != null) {
+            isExists = productService.isExists(productForm.getId(), productForm.getCode());
+        } else {
+            isExists = productService.isExists(productForm.getCode());
+        }
 
         if (isExists) {
 
