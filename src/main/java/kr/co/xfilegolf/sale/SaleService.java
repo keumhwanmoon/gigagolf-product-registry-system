@@ -63,6 +63,7 @@ public class SaleService {
 
     private void mapProduct(SaleForm saleForm, Sale sale) {
 
+        sale.setProductId(saleForm.getProductId());
         sale.setProductCode(saleForm.getProductCode());
         sale.setSerialNumber(saleForm.getSerialNumber());
 
@@ -78,6 +79,10 @@ public class SaleService {
 
     public List<Sale> findByLoginId(String username) {
         return saleRepository.findByCreatedBy(username);
+    }
+
+    public List<Sale> findByProductId(Long id) {
+        return saleRepository.findByProductId(id);
     }
 
     public List<SaleDTO> mapToDto(List<Sale> sales) {

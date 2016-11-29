@@ -49,8 +49,9 @@
                                             <select id="product-code" class="form-control select" style="background-color: lightgrey"
                                                     th:field="*{productCode}">
                                                 <option value="">(선택)</option>
-                                                <option th:each="product : *{products}" th:value="${product.code}" th:text="!${product.code eq 'NONE'} ? ${product.code} + ': ' + ${product.name} : ${product.name}"></option>
+                                                <option th:each="product : *{products}" th:value="${product.code}" th:attr="data-id=${product.id}" th:text="!${product.code eq 'NONE'} ? ${product.code} + ': ' + ${product.name} : ${product.name}"></option>
                                             </select>
+                                            <input type="hidden" th:field="*{productId}" id="product-id" />
                                             <ul th:if="${#fields.hasErrors('productCode')}" class="parsley-errors-list filled">
                                                 <li th:errors="*{productCode}" class="parsley-required"></li>
                                             </ul>
@@ -115,6 +116,10 @@
 
             $(document).ready(function () {
                 setSerialProductCode();
+
+                $("#product-code").change(function () {
+                    $("#product-id").val($("#product-code>option:selected").attr("data-id"));
+                });
             });
 
             var setSerialProductCode = function() {

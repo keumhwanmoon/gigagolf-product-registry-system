@@ -149,12 +149,18 @@
                     url: "/user?id=" + id,
                     success: function () {
                         swal({
-                                    title: "삭제되었습니다!",
-                                    type: "success"
-                                },
-                                function () {
-                                    location.reload();
-                                });
+                                title: "삭제되었습니다!",
+                                type: "success"
+                            },
+                            function () {
+                                location.reload();
+                            });
+                    },
+                    error: function (data) {
+                        swal({
+                                title: data.responseJSON.message,
+                                type: "error"
+                            });
                     }
                 });
 

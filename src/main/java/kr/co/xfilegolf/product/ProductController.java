@@ -1,5 +1,7 @@
 package kr.co.xfilegolf.product;
 
+import kr.co.xfilegolf.sale.Sale;
+import kr.co.xfilegolf.sale.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,11 +22,13 @@ import java.util.List;
 @Controller
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
+    private final SaleService saleService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, SaleService saleService) {
         this.productService = productService;
+        this.saleService = saleService;
     }
 
     @GetMapping(value = "/product")
@@ -40,9 +44,15 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "/product")
-    public String productDelete(@RequestParam(name = "id") Long id) {
+    public String productDelete(@RequestParam(name = "id") Long id) throws Exception {
 
-        productService.remove(id);
+        List<Sale> sales = saleService.findByProductId(id);
+
+        if (!sales.isEmpty()) {
+            throw new Exception("등록된 판매/구매 내역이 존재하여 상품을 삭제할 수 없습니다.");
+        } else {
+            productService.remove(id);
+        }
 
         return "/product/product";
     }

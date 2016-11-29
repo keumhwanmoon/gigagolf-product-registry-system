@@ -21,6 +21,9 @@ public class Sale {
     @Column(name = "ID")
     private Long id;
 
+    @Column(name = "PRODUCT_ID")
+    private Long productId;
+
     @Column(name = "PRODUCT_CODE")
     private String productCode;
 

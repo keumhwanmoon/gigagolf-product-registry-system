@@ -1,6 +1,8 @@
 package kr.co.xfilegolf.user;
 
 import kr.co.xfilegolf.SecurityUtils;
+import kr.co.xfilegolf.sale.Sale;
+import kr.co.xfilegolf.sale.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -22,10 +24,12 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
+    private final SaleService saleService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, SaleService saleService) {
         this.userService = userService;
+        this.saleService = saleService;
     }
 
     @GetMapping(value = "/user")
@@ -142,9 +146,19 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/user")
-    public String userDelete(@RequestParam(name = "id") Long id) {
+    public String userDelete(@RequestParam(name = "id") Long id) throws Exception {
 
-        userService.remove(id);
+        User user = userService.findOne(id);
+
+        String loginId = user.getLoginId();
+
+        List<Sale> sales = saleService.findByLoginId(loginId);
+
+        if (!sales.isEmpty()) {
+            throw new Exception("등록된 판매/구매 내역이 존재하여 사용자를 삭제할 수 없습니다.");
+        } else {
+            userService.remove(id);
+        }
 
         return "/user/user";
     }

@@ -16,6 +16,8 @@ public class SaleForm {
 
     private Long id;
 
+    private Long productId;
+
     @NotNull(message = "제품코드는 반드시 선택해야 합니다.")
     private String productCode;
 

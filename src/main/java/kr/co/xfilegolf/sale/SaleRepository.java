@@ -19,6 +19,8 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 
     List<Sale> findTop10ByOrderByCreatedOnDesc();
 
+    List<Sale> findByProductId(Long id);
+
     long countByCreatedBy(String username);
 
     long countBySalesOnBetween(LocalDate yearAgo, LocalDate today);
