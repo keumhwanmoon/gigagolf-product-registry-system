@@ -79,6 +79,7 @@
 
                                         if ("NONE" == code) {
                                             $("#empty-product-code").prop("checked", true);
+                                            $("#product-code").val("NONE").attr("disabled", true);
                                         } else if (!code) {
                                             $("#product-code").val("");
                                         } else {
